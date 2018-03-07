@@ -11,7 +11,12 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+//网络状态
+@property (strong, nonatomic) Reachability *reach;
+@property (nonatomic) NetworkStatus networkStatus;
+@property (nonatomic, assign) int autoDismissAlertCount;
+@property (nonatomic) int tryDetectNetworkTimesCount;
+@property (nonatomic, strong) UIAlertView* autoDismissAlert;
 
 @end
 

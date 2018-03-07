@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TabBar.h"
+@interface ViewController : UITabBarController
 
-@interface ViewController : UIViewController
-
+@property (nonatomic, weak) TabBar *customTabBar;
 
 @end
 

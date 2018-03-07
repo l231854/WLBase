@@ -1,0 +1,25 @@
+//
+//  WLBase-Prefix.pch
+//  WLBase
+//
+//  Created by 雷王 on 17/2/24.
+//  Copyright © 2017年 WL. All rights reserved.
+//
+
+#ifndef WLBase_Prefix_pch
+#define WLBase_Prefix_pch
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "MBProgressHUD.h"
+#import "MBProgressHUD+_WL.h"
+#import "SDWebImageManager.h"
+#import "MJRefresh.h"
+
+#import "BlockButton.h"
+#import "Constant.h"
+#import "NSString+HXAddtions.h"
+#import "Reachability.h"
+#import "HttpRequest.h"
+#import "UINavigationBar+Awesome.h"
+
+#endif /* WLBase_Prefix_pch */
