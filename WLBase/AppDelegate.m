@@ -9,7 +9,14 @@
 #import "AppDelegate.h"
 #import "PublicNavViewController.h"
 #import "ViewController.h"
-@interface AppDelegate ()
+#import "LoadingViewController.h"
+#import "JPUSHService.h"
+#import "IFlyMSC/IFlyMSC.h"
+
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
+@interface AppDelegate ()<JPUSHRegisterDelegate>
 
 @end
 
@@ -20,13 +27,39 @@
     // Override point for customization after application launch.
 
     
-    
+    //初始化推送
+    [self initPushLaunchOptions:launchOptions];
     //初始化网络监听
     [self initReachibility];
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[PublicNavViewController alloc] initWithRootViewController:[[ViewController alloc] init]];;
+    //初始化科大讯飞语音
+    //Set log level
+    [IFlySetting setLogFile:LVL_ALL];
+    
+    //Set whether to output log messages in Xcode console
+    [IFlySetting showLogcat:YES];
+    
+    //Set the local storage path of SDK
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachePath = [paths objectAtIndex:0];
+    [IFlySetting setLogFilePath:cachePath];
+    
+    //Set APPID
+    NSString *initString = [[NSString alloc] initWithFormat:@"appid=%@",APPID_VALUE];
+    
+    //Configure and initialize iflytek services.(This interface must been invoked in application:didFinishLaunchingWithOptions:)
+    [IFlySpeechUtility createUtility:initString];
+
+    
+//    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    self.window.backgroundColor = [UIColor whiteColor];
+//    self.window.rootViewController = [[PublicNavViewController alloc] initWithRootViewController:[[ViewController alloc] init]];;
+//    [self.window makeKeyAndVisible];
+    LoadingViewController* loadingViewController = [[LoadingViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loadingViewController];
+    [nav setNavigationBarHidden:YES animated:YES];
+    [nav setToolbarHidden:YES animated:YES];
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -111,8 +144,168 @@
         }
     }
 }
+#pragma mark 初始化推送
+-(void)initPushLaunchOptions:(NSDictionary *)launchOptions
+{
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    
+    
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+        JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+        entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+        [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+#endif
+    } else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        //可以添加自定义categories
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                          UIUserNotificationTypeSound |
+                                                          UIUserNotificationTypeAlert)
+                                              categories:nil];
+    } else {
+        //categories 必须为nil
+        [JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                          UIRemoteNotificationTypeSound |
+                                                          UIRemoteNotificationTypeAlert)
+                                              categories:nil];
+    }
+    
+    
+    
+    
+    
+    
+    //JPush 2.1.6 版本
+    //如不需要使用IDFA，advertisingIdentifier 可为nil
+    [JPUSHService setupWithOption:launchOptions appKey:JPUSH_APPKEY
+                          channel:PACKAGE_CHINNLE
+                 apsForProduction:YES
+            advertisingIdentifier:nil];
+    // [2-EXT]: 获取启动时收到的APN
+    self.pushMessage = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (self.pushMessage)
+    {
+        //NSString *payloadMsg = [message objectForKey:@"payload"];
+        
+        NSLog(@"获取启动时收到的APN = %@", self.pushMessage);
+        
+        
+    }
+}
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // Required
+    //注册到极光
+    [JPUSHService registerDeviceToken:deviceToken];
+    
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    NSString* tarDeviceToken = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"deviceToken:%@", deviceToken);
+}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    
+    NSLog(@"在didReceiveRemoteNotification收到的APN = %@", userInfo);
+    
+    
+    // Required
+    [JPUSHService handleRemoteNotification:userInfo];
+}
 
 
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    NSLog(@"在fetchCompletionHandler收到的APN = %@", userInfo);
+    
+    NSLog(@"application.applicationState=%d", (int)application.applicationState);
+    
+    
+    //应用程序在前台
+    if (application.applicationState == UIApplicationStateActive)
+    {
+        self.pushMessage = userInfo;
+        
+        NSDictionary* apsDic = userInfo[@"aps"];
+        
+    }
+    else
+    {
+        
+        
+        // IOS 7 Support Required
+        if ([application respondsToSelector:@selector(registerUserNotificationSettings:)])
+        {
+            // [2-EXT]: 在后台收到的APN
+            self.pushMessage = userInfo;
+            if (self.pushMessage)
+            {
+                //NSLog(@"在后台收到的APN = %@", self.pushMessage);
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:KReceivedRemoteNotificationFromBackgroundToForegroundNotification object:nil];
+            }
+            
+            // use registerUserNotificationSettings
+            [JPUSHService handleRemoteNotification:userInfo];
+            completionHandler(UIBackgroundFetchResultNewData);
+        } else {
+            // use registerForRemoteNotifications
+            
+            if ([application respondsToSelector:@selector(registerForRemoteNotificationTypes:)]) {
+                self.pushMessage = userInfo;
+                if (self.pushMessage)
+                {
+                    //NSLog(@"在后台收到的APN = %@", self.pushMessage);
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KReceivedRemoteNotificationFromBackgroundToForegroundNotification object:nil];
+                }
+                
+                // use registerUserNotificationSettings
+                [JPUSHService handleRemoteNotification:userInfo];
+                completionHandler(UIBackgroundFetchResultNewData);
+            }
+            //TODO, 7.0的推送
+        }
+    }
+    
+    
+}
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger options))completionHandler
+{
+    
+    NSDictionary *userInfo = notification.request.content.userInfo;
+    
+    self.pushMessage = notification.request.content.userInfo;
+    
+    NSDictionary* apsDic = userInfo[@"aps"];
+    if ( [apsDic isKindOfClass:[NSDictionary class]]  )
+    {
+        NSDictionary* alertDic = apsDic[@"alert"];
+        
+        
+        
+    }
+}
+
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler
+{
+    NSDictionary *userInfo = response.notification.request.content.userInfo;
+    self.pushMessage = userInfo;
+    if (self.pushMessage)
+    {
+        //NSLog(@"在后台收到的APN = %@", self.pushMessage);
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:KReceivedRemoteNotificationFromBackgroundToForegroundNotification object:nil];
+    }
+    
+    // use registerUserNotificationSettings
+    [JPUSHService handleRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+#endif
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -123,6 +316,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+
 }
 
 

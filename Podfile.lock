@@ -1,21 +1,22 @@
 PODS:
-  - AFNetworking (3.2.0):
-    - AFNetworking/NSURLSession (= 3.2.0)
-    - AFNetworking/Reachability (= 3.2.0)
-    - AFNetworking/Security (= 3.2.0)
-    - AFNetworking/Serialization (= 3.2.0)
-    - AFNetworking/UIKit (= 3.2.0)
-  - AFNetworking/NSURLSession (3.2.0):
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.0)
-  - AFNetworking/Security (3.2.0)
-  - AFNetworking/Serialization (3.2.0)
-  - AFNetworking/UIKit (3.2.0):
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - BMKLocationKit (1.2.1)
   - MBProgressHUD (1.1.0)
-  - MJExtension (3.0.13)
+  - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.3)
   - Reachability (3.2)
   - SDWebImage (3.8.2):
@@ -24,20 +25,32 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - BMKLocationKit
   - MBProgressHUD
   - MJExtension (~> 3.0)
   - MJRefresh
   - Reachability
   - SDWebImage (~> 3.8.2)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - BMKLocationKit
+    - MBProgressHUD
+    - MJExtension
+    - MJRefresh
+    - Reachability
+    - SDWebImage
+
 SPEC CHECKSUMS:
-  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  BMKLocationKit: c0fd588904738a6865e9311ed445c38452039007
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 55997fe3883cba9d74b6c4cecb117215171a1c84
+PODFILE CHECKSUM: 8d3a8096f82720eb127d5e0f3b2506d5f3403199
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

@@ -8,8 +8,38 @@
 
 #ifndef Constant_h
 #define Constant_h
+#import "MobileData.h"
+#import "DynamicForwardBtn.h"
+#import "UIImageView+WebCache.h"
+#import "UIIMage+Empress.h"
+#import "IATConfig.h"
+#import "MBProgressHUD+ZH.h"
+//推送需要的
+#define JPUSH_APPKEY @"cd27f62653b5a16d73f87489"
+#define PACKAGE_CHINNLE @"AppStore"
+//科大讯飞语音APPID
+#define APPID_VALUE           @"5b166703"
+
+//收到远程通知，点击推送栏，从后台到前台
+#define KReceivedRemoteNotificationFromBackgroundToForegroundNotification @"KReceivedRemoteNotificationFromBackgroundToForegroundNotification"
+
+
+#define kAskOpenPhotosTip @"请允许\"小智\"访问照片"
+#define kAskOpenCameroTip @"请允许\"小智\"访问相机"
+#define kOpenPhotosTip @"开启 [访问照片]"
+#define kOpenCameroTip @""
+#define kAllowVisitorPhotosTip @"请到系统“设置”-“隐私”-“照片”中，允许“小智”访问照片"
+#define kAllowVisitorCameroTip @"请到系统“设置”-“隐私”-“相机”中，允许“小智”访问相机"
+
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
+
+
+/**登录成功通知 */
+#define KLoginSuccessfulNotification @"KLoginSuccessfulNotification"
+#define KLoginFailNotification @"KLoginFailNotification"
+#define KLoginFailWithUserNameOrPassordIsNotRightNotification @"KLoginFailWithUserNameOrPassordIsNotRightNotification"
+#define kPhoneNumIsNotRightTip @"手机号无效"
 
 #pragma mark -- 颜色
 #define UIColorFromRGB(rgbValue,alphaValue) [UIColor \
@@ -19,7 +49,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:alphaValue]
 
 #pragma mark -- tabbar 字体的颜色
 #define WLTabbarNormalColor UIColorFromRGB(0x808080, 1.0)
-#define WLTabbarSelectedColor UIColorFromRGB(0xff7f00, 1.0)
+//#define WLTabbarSelectedColor UIColorFromRGB(0xff7f00, 1.0)
+#define WLTabbarSelectedColor ( [UIColor colorWithRed:41.0/255.0f green:177.0/255.0f blue:252/255.0f alpha:1.0] )
 
 #define SeperatorLineTag ( 0x000035890 )
 
@@ -63,7 +94,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:alphaValue]
 //适配x
 //#define XCStatusBar ([UIScreen mainScreen].bounds.size.height==812?145:64)
 #define XCStatusBar ([UIScreen mainScreen].bounds.size.height==812?105:64)
-#define XCStatusBar2 ([UIScreen mainScreen].bounds.size.height==812?90:64)
+#define XCStatusBar2 ([UIScreen mainScreen].bounds.size.height==812?88:64)
 
 #define XCTbaBar ([UIScreen mainScreen].bounds.size.height==812?29:49)
 
@@ -124,7 +155,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:alphaValue]
 #define LineColor ( KSeparatorLineColor )
 
 //颜色
-#define DEFAULT_BackgroundView_COLOR UIColorFromRGB(0xefefef, 1.0)
+//#define DEFAULT_BackgroundView_COLOR UIColorFromRGB(0xefefef, 1.0)
+#define DEFAULT_BackgroundView_COLOR  [UIColor colorWithRed:246/255.0f green:246/255.0f blue:247/255.0f alpha:1.0]
+
 
 #define DEFAULT_TEXT_COLOR UIColorFromRGB(0x999999, 1)
 #define DEFAULT_TEXT_COLOR_NUMBER UIColorFromRGB(0x666666, 1)

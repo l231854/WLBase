@@ -29,7 +29,9 @@
     if (self = [super initWithFrame:frame]) {
         
         [self setupBg];
-        //        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor whiteColor];
+        self.clipsToBounds = NO;
+        
     }
     return self;
 }
@@ -65,6 +67,12 @@
 - (void)tabBarButtonClick:(TabBarButton *)button
 {
     
+//    if (button.tag ==2) {
+//        self.homeBtnImageview.selected = YES;
+//    }else
+//    {
+//        self.homeBtnImageview.selected = NO;
+//    }
     if ([self.delegate respondsToSelector:@selector(tabBar:didSelectButtonFrom:to:)]) {
         NSInteger from = self.selectedTabBarButton.tag;
         NSInteger to = button.tag;
@@ -83,14 +91,45 @@
  */
 - (void)setupBg
 {
-//    if (!IOS7) {
-//        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tabbar_background"]];
-//    }
+    if (!IOS7) {
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tabbar_background"]];
+    }
 }
-
-/**
- *  布局子控件
- */
+///**
+// *  设置背景
+// */
+//- (void)setupBg
+//{
+//    UIImageView *imageView2 = [[UIImageView alloc] init];
+//    
+//    imageView2.frame = CGRectMake(WIDTH/2-70.0/2, -30, 70, 70);
+//    [imageView2 setBackgroundColor:[UIColor whiteColor]];
+//    //        [self.view addSubview:imageView2];
+//    [self insertSubview:imageView2 atIndex:0];
+//    
+////    self.rectImageView = imageView2;
+//    imageView2.clipsToBounds = YES;
+//    imageView2.layer.cornerRadius = 35;
+//    imageView2.layer.borderWidth = 0.5;
+//    imageView2.layer.borderColor = [UIColor colorWithRed:167.0/255.0 green:167.0/255.0 blue:167.0/255.0 alpha:1.0].CGColor;
+//    UIView *viewimageView2 = [[UIView alloc] init];
+//    viewimageView2.frame=CGRectMake(WIDTH/2-70.0/2, 0, 70, 40);
+//    viewimageView2.backgroundColor = [UIColor whiteColor];
+//    [self addSubview:viewimageView2];
+//    
+////    UIImage *iamge = [UIImage imageNamed:@"icon3"];
+////    self.homeBtnImageview = [[UIButton alloc] init];
+////    self.homeBtnImageview.frame = CGRectMake(WIDTH/2-iamge.size.width/2, -20, iamge.size.width, iamge.size.height);
+////    self.homeBtnImageview.selected  =YES;
+////    [self.homeBtnImageview setImage:iamge forState:UIControlStateSelected];
+////    [self.homeBtnImageview setImage:[UIImage imageNamed:@"icon3 copy"] forState:UIControlStateNormal];
+////    [self addSubview:self.homeBtnImageview];
+//
+//}
+//
+///**
+// *  布局子控件
+// */
 - (void)layoutSubviews
 {
     [super layoutSubviews];

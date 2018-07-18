@@ -11,6 +11,7 @@
 @interface ViewController : UITabBarController
 
 @property (nonatomic, weak) TabBar *customTabBar;
+@property (nonatomic,assign) BOOL  isTabBarHidden;
 
 @end
 

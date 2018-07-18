@@ -11,6 +11,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+//推送消息
+@property (strong, nonatomic) NSDictionary* pushMessage;
 //网络状态
 @property (strong, nonatomic) Reachability *reach;
 @property (nonatomic) NetworkStatus networkStatus;

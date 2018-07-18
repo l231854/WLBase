@@ -31,6 +31,7 @@
        NSForegroundColorAttributeName :[UIColor colorWithRed:45/255.0f green:45/255.0f blue:45/255.0f alpha:1.0],
        NSFontAttributeName : [UIFont systemFontOfSize:36/2]
        }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -327,16 +328,10 @@
 
 -(void)buildBackBarButtonItemGrayCoolr
 {
-    //    //往左移动
-    //    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-    //                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-    //                                       target:nil action:nil];
-    //    negativeSpacer.width = LeftNavBarItemOffset;
-    
     self.navigationItem.leftBarButtonItem = nil;
     
     if ([self.parentViewController isKindOfClass:[XCNavigationModalViewController class]] && self.navigationController.viewControllers.count == 1) {
-        UIImage* img = [UIImage imageNamed:@"back"];
+        UIImage* img = [UIImage imageNamed:@"nav_icon_back"];
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(0, 0, img.size.width, img.size.height);
         [btn setImage:img forState:UIControlStateNormal];
@@ -347,7 +342,7 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     }else
     {
-        UIImage* img = [UIImage imageNamed:@"back"];
+        UIImage* img = [UIImage imageNamed:@"nav_icon_back"];
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         //btn.backgroundColor = [UIColor redColor];
         btn.frame = CGRectMake(0, 0, img.size.width, img.size.height);

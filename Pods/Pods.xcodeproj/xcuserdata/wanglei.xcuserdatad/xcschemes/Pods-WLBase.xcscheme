@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'DB80EF8E20766DE01CCCAF130358A66B'
-               BlueprintName = 'Pods-WLBase'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-WLBase.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7C836F6AAC392567C2A3A07C1756DB6D"
+               BlueprintName = "Pods-WLBase"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libPods-WLBase.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

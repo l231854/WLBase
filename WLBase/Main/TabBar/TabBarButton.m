@@ -34,7 +34,7 @@
         
         [self setTitleColor:WLTabbarNormalColor forState:UIControlStateNormal];
         [self setTitleColor:WLTabbarSelectedColor forState:UIControlStateSelected];
-        
+
          }
     return self;
 }

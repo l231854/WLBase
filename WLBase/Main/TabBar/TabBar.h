@@ -24,6 +24,7 @@
 - (void)addTabBarButton:(UITabBarItem *)item;
 
 - (void)tabBarButtonClick:(TabBarButton *)button;
+@property (nonatomic,strong) UIButton *homeBtnImageview;
 
 @property (nonatomic, strong) NSMutableArray *tabBarButtons;
 
