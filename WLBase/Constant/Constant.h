@@ -23,6 +23,12 @@
 //收到远程通知，点击推送栏，从后台到前台
 #define KReceivedRemoteNotificationFromBackgroundToForegroundNotification @"KReceivedRemoteNotificationFromBackgroundToForegroundNotification"
 
+//第三方
+//微信
+#define WEIXIN_APPKEY           @"wx3b2c5c1d75784585"
+//#define WEIXIN_WEIXINSECRET     @"d1d5265e39e656d771cdf788d74c077a"
+#define WEIXIN_WEIXINSECRET     @"bccb868b1e97af5d470784905f8212ee"
+
 
 #define kAskOpenPhotosTip @"请允许\"小智\"访问照片"
 #define kAskOpenCameroTip @"请允许\"小智\"访问相机"

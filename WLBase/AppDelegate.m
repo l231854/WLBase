@@ -16,13 +16,23 @@
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
 #endif
-@interface AppDelegate ()<JPUSHRegisterDelegate>
+#import <BaiduMapAPI_Base/BMKMapManager.h>
+BMKMapManager *_mapManager;
+
+@interface AppDelegate ()<BMKGeneralDelegate,JPUSHRegisterDelegate>
 
 @end
 
 @implementation AppDelegate
 
-
+- (void)resignBaiduLocation {
+ 
+    _mapManager = [[BMKMapManager alloc] init];
+    BOOL ret = [_mapManager start:@"B0SzrFwaR5a09GC30w56sdIxAMuYEjA8" generalDelegate:self];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
@@ -31,7 +41,12 @@
     [self initPushLaunchOptions:launchOptions];
     //初始化网络监听
     [self initReachibility];
+    [self resignBaiduLocation];
+
     
+    //初始化微信
+    [WXApi registerApp:WEIXIN_APPKEY withDescription:@"0744"];
+
     //初始化科大讯飞语音
     //Set log level
     [IFlySetting setLogFile:LVL_ALL];
@@ -144,6 +159,67 @@
         }
     }
 }
+
+
+#pragma mark------------------------微信登陆后的回调----------------------------
+//微信授权登录后的回调。我们获得code，根据code去请求token
+-(void) onResp:(BaseResp*)resp
+{
+    NSLog(@"resp");
+    if ([resp isKindOfClass:[PayResp class]]) {
+        // 微信支付结束远程通知
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kOrderDidEndPayWithWeixinNotification object:resp userInfo:nil];
+        // 取消该远程通知
+        //        [[NSNotificationCenter defaultCenter] postNotificationName:@"kOrderDidEndPayUseWeixinNotification" object:resp userInfo:nil];
+        
+        //        [[NSNotificationCenter defaultCenter] postNotificationName:@"kGGSYJFNotification" object:resp userInfo:nil];
+        
+    }
+    else if([resp isKindOfClass:[SendMessageToWXResp class]])//分享微信的行为结束回调
+    {
+        NSLog(@"%@",resp);
+        NSLog(@"errStr %@",[resp errStr]);
+        NSLog(@"errCode %d",[resp errCode]);
+        NSLog(@"type %d",[resp type]);
+        
+        if ( [resp errCode] == 0 )//分享成功
+        {
+            //TODO
+            //            KShareWeixinFriendSuccessfulNotification;
+            //
+            //            KShareWeixinFriendSuccessfulNotification;
+            
+//            [[NSNotificationCenter defaultCenter] postNotificationName:KShareWeixinFriendSuccessfulNotification object:nil];//TODO
+            NSLog(@"微信分享成功");
+        }
+        else
+        {
+            NSLog(@"发布失败!");
+        }
+        
+    }else
+    {
+//        [[LoginSingleton sharedInstance]  receiveWeixinResponseWith:resp];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"weixinLogin" object:resp];//TODO
+
+    }
+    
+    
+}
+#pragma mark-----------------------------------------------------------------
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+//    return [self application:application openURL:url options:nil];
+    return [WXApi handleOpenURL:url delegate:self];
+
+}
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+//{
+//
+//    return [WXApi handleOpenURL:url delegate:self];
+//
+//}
+
 #pragma mark 初始化推送
 -(void)initPushLaunchOptions:(NSDictionary *)launchOptions
 {

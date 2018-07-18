@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-
+#import "WLLocationViewController.h"
 
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -34,7 +34,8 @@
 #pragma mark -click
 - (void)clickBtn:(UIButton *)btn
 {
-    
+    WLLocationViewController *vc = [[WLLocationViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)viewWillAppear:(BOOL)animated
 {

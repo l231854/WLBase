@@ -12,5 +12,5 @@ pod 'MJExtension', '~> 3.0'
 pod 'MJRefresh'
 pod 'MBProgressHUD'
 pod ‘Reachability’
-pod 'BMKLocationKit'
+pod 'MJExtension', '~> 3.0'
 end
