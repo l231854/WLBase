@@ -129,6 +129,16 @@ THE SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Copyright © 2012-2018 mob</string>
+			<key>License</key>
+			<string>Copyright © 2012-2018 mob.com</string>
+			<key>Title</key>
+			<string>MOBFoundation</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (c) 2011, Tony Million.
 All rights reserved.
 
@@ -174,6 +184,17 @@ THE SOFTWARE.
 			<string>MIT</string>
 			<key>Title</key>
 			<string>SDWebImage</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>Copyright © 2012-2018 mob
+</string>
+			<key>License</key>
+			<string>MIT</string>
+			<key>Title</key>
+			<string>mob_sharesdk</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

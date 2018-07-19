@@ -17,6 +17,13 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 #import <BaiduMapAPI_Base/BMKMapManager.h>
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+//腾讯开放平台（对应QQ和QQ空间）SDK头文件
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+//新浪微博SDK头文件<
+#import "WeiboSDK.h"
 BMKMapManager *_mapManager;
 
 @interface AppDelegate ()<BMKGeneralDelegate,JPUSHRegisterDelegate>
@@ -46,7 +53,7 @@ BMKMapManager *_mapManager;
     
     //初始化微信
     [WXApi registerApp:WEIXIN_APPKEY withDescription:@"0744"];
-
+    [self createShareSDK];
     //初始化科大讯飞语音
     //Set log level
     [IFlySetting setLogFile:LVL_ALL];
@@ -61,7 +68,7 @@ BMKMapManager *_mapManager;
     
     //Set APPID
     NSString *initString = [[NSString alloc] initWithFormat:@"appid=%@",APPID_VALUE];
-    
+
     //Configure and initialize iflytek services.(This interface must been invoked in application:didFinishLaunchingWithOptions:)
     [IFlySpeechUtility createUtility:initString];
 
@@ -80,6 +87,45 @@ BMKMapManager *_mapManager;
     return YES;
 }
 
+
+#pragma mark --创建shareSDK
+-(void)createShareSDK
+{
+    [ShareSDK registerActivePlatforms:@[@(SSDKPlatformTypeWechat),@(SSDKPlatformTypeSinaWeibo),
+                                        @(SSDKPlatformTypeQQ),] onImport:^(SSDKPlatformType platformType) {
+                                            switch (platformType)
+                                            {
+                                                case SSDKPlatformTypeWechat:
+                                                    [ShareSDKConnector connectWeChat:[WXApi class]];
+                                                    break;
+                                                case SSDKPlatformTypeQQ:
+                                                    [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+                                                    break;
+                                                case SSDKPlatformTypeSinaWeibo:
+                                                    [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        } onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+                                            switch (platformType)
+                                            {
+                                                case SSDKPlatformTypeSinaWeibo:
+                                                    //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
+                                                    [appInfo SSDKSetupSinaWeiboByAppKey:@"568898243" appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3" redirectUri:@"http://www.sharesdk.cn" authType:SSDKAuthTypeBoth];
+                                                    break;
+                                                case SSDKPlatformTypeWechat:
+                                                    [appInfo SSDKSetupWeChatByAppId: @"wx3b2c5c1d75784585" appSecret:@"bccb868b1e97af5d470784905f8212ee"];
+                                                    break;
+                                                case SSDKPlatformTypeQQ:
+                                                    [appInfo SSDKSetupQQByAppId:@"100371282"appKey:@"aed9b0303e3ed1e27bae87c33761161d" authType:SSDKAuthTypeBoth];
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                            
+                                        }];
+}
 #pragma mark 监听网络状态
 -(void)initReachibility
 {
@@ -207,8 +253,15 @@ BMKMapManager *_mapManager;
     
 }
 #pragma mark-----------------------------------------------------------------
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    NSLog(@"application");
+    return [WXApi handleOpenURL:url delegate:self];
+
+}
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    NSLog(@"application");
 //    return [self application:application openURL:url options:nil];
     return [WXApi handleOpenURL:url delegate:self];
 

@@ -13,4 +13,8 @@ pod 'MJRefresh'
 pod 'MBProgressHUD'
 pod ‘Reachability’
 pod 'MJExtension', '~> 3.0'
+pod 'mob_sharesdk'
+pod 'mob_sharesdk/ShareSDKUI'
+pod 'mob_sharesdk/ShareSDKPlatforms/QQ'
+pod 'mob_sharesdk/ShareSDKPlatforms/SinaWeibo'
 end

@@ -129,6 +129,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:alphaValue]
 //计算字符串size
 #define XCsizeWithFont(value,font) [value sizeWithAttributes:@{NSFontAttributeName : font}]
 
+#define WLsize(value) (value/375.0*WIDTH)
 
 #define KGetViewToppestYPosition(value) (value.frame.origin.y)
 #define KGetViewLeftestXPosition(value) (value.frame.origin.x)

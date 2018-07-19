@@ -15,6 +15,7 @@
 //#import "MyKeyChainHelper.h"
 #import "XCLoginViewController.h"
 #import "XCWebViewController.h"
+#import "WLFirstViewController.h"
 //#import "XCAutomaticlyLogin.h"
 //#import "XCChooseCityViewController.h"
 //#import "XCBeforeLoginViewController.h"
@@ -59,16 +60,25 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])
     {
 //        [WZGuideViewController show];
-        [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(gotoFirstVC) withObject:nil afterDelay:0.2];
 
     }
     else
     {
-        
-        [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(gotoFirstVC) withObject:nil afterDelay:0.2];
+
+//        [self performSelector:@selector(gotoLoginViewController) withObject:nil afterDelay:0.2];
 
 
     }
+}
+
+#pragma mark --进入第一个页面
+- (void)gotoFirstVC
+{
+    WLFirstViewController *firstVC = [[WLFirstViewController alloc] init];
+    XCNavigationModalViewController *navLogin = [[XCNavigationModalViewController alloc] initWithRootViewController:firstVC];
+    [self presentViewController:navLogin animated:YES completion:nil];
 }
 
 #pragma mark - 监听textField
@@ -130,61 +140,6 @@
 }
 
 
-
-//#pragma mark -- 倒计时
-//- (void)Countdown:(UILabel *)label
-//{
-//
-//    __block int timeout=3; //倒计时时间
-//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//    self._time = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
-//    dispatch_source_set_timer(self._time,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
-//    dispatch_source_set_event_handler(self._time, ^{
-//        if(timeout<=0 ){ //倒计时结束，关闭
-//            dispatch_source_cancel(self._time);
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self goToHomeVC];
-//            });
-//        }else{
-//            //            int minutes = timeout / 60;
-//            int seconds = timeout % 60;
-//            NSString *strTime = [NSString stringWithFormat:@"%.d", seconds];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                label.text=strTime;
-//            });
-//            timeout--;
-//
-//        }
-//    });
-//    dispatch_resume(self._time);
-//
-//}
-//
-
-//#pragma mark -- 进入首页
-//-(void)goToHomeVC
-//{
-//    if (self._time) {
-//        dispatch_source_cancel(self._time);
-//
-//    }
-//
-//    //创建首页
-//    AppDelegate* appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"loginCreateHome"];
-//
-//    appDelegate.window.rootViewController = [[XCPublicNavViewController alloc] initWithRootViewController:[[ViewController alloc] init]];
-//}
-
-//- (void)loginFail
-//{
-//    [self gotoLoginViewController];
-//}
-//
-//-(void)loginAutomaticly
-//{
-//    [XCAutomaticlyLogin loginAudomaticlyWithcontroller:self];
-//}
 
 - (void)gotoLoginViewController
 {

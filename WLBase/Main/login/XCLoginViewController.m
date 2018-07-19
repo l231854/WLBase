@@ -15,6 +15,7 @@
 #import "WXApi.h"
 #import "XCThirdLoginExUserInfo.h"
 #import "XCThirdBackResult.h"
+#import <ShareSDK/ShareSDK.h>
 #define KSep1 30
 #define KHeight 44
 
@@ -143,15 +144,31 @@
 #pragma mark --点击微信登陆
 -(void)clickWXLogin
 {
-    SendAuthReq* req =[[SendAuthReq alloc ] init];
-    
-    //都有哪些权限
-    req.scope = @"snsapi_message,snsapi_userinfo,snsapi_contact";
-    //应用标示，两个程序之间跳转的标示
-    req.state = @"0744";
-    //调微信客户端
-    [WXApi sendReq:req];
-    [WXApi sendAuthReq:req viewController:self delegate:self];
+//    SendAuthReq* req =[[SendAuthReq alloc ] init];
+//    
+//    //都有哪些权限
+//    req.scope = @"snsapi_message,snsapi_userinfo,snsapi_contact";
+//    //应用标示，两个程序之间跳转的标示
+//    req.state = @"0744";
+//    //调微信客户端
+//    [WXApi sendReq:req];
+//    [WXApi sendAuthReq:req viewController:self delegate:self];
+    [ShareSDK authorize:SSDKPlatformTypeWechat settings:nil onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+        if (state == SSDKResponseStateSuccess)
+        {
+            NSLog(@"%@",user.rawData);
+            NSLog(@"uid===%@",user.uid);
+            NSLog(@"%@",user.credential);
+        }
+        else if (state == SSDKResponseStateCancel)
+        {
+            NSLog(@"取消");
+        }
+        else if (state == SSDKResponseStateFail)
+        {
+            NSLog(@"%@",error);
+        }
+    }];
 }
 #pragma mark----------------------------------------------微信登陆--------------------------------------------------------
 //微信登陆的回调
