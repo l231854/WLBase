@@ -8,7 +8,7 @@
 
 #import "WLFirstViewController.h"
 #define KCellHeight1 140.0/375*WIDTH
-#define KCellHeight2 140.0/375*WIDTH
+#define KCellHeight2 150.0/375*WIDTH
 #define KCellHeight3 140.0/375*WIDTH
 #define KCellHeight4 140.0/375*WIDTH
 #define KCellHeight5 140.0/375*WIDTH
@@ -71,7 +71,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 2;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -190,7 +190,17 @@
 }
 - (void)createCell2:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
+    NSMutableArray *arrofData = [[NSMutableArray alloc] init];
+    HomeBannerModel *model1 = [[HomeBannerModel alloc] init];
+    model1.headImageUrl=@"http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png";
+    [arrofData addObject:model1];
+    HomeBannerModel *model2 = [[HomeBannerModel alloc] init];
+    model2.headImageUrl=@"http://img05.tooopen.com/images/20150820/tooopen_sy_139205349641.jpg";
+    [arrofData addObject:model2];
     
+    BannerView *banner =  [[BannerView alloc] initWithFrame:CGRectMake(0, 0 , WIDTH, KCellHeight2) andDataOfHomePageMedel:arrofData withViewController:self isNeedSeparator:NO];
+    [cell.contentView addSubview:banner];
+
 }
 - (void)createCell3:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {

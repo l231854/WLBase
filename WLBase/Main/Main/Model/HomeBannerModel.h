@@ -10,6 +10,8 @@
 
 @interface HomeBannerModel : NSObject
 @property (nonatomic,strong) NSString *headImageUrl;
+@property (nonatomic,strong) NSString *headImage;
+
 //：情景ID
 @property (nonatomic,strong) NSString *processId;
 //情景状态

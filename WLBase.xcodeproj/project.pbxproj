@@ -12,6 +12,9 @@
 		9B0B8C2221008B92004F4F27 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0B8C2021008B92004F4F27 /* libWeChatSDK.a */; };
 		9B0B8C252100BAD5004F4F27 /* WLFlyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0B8C242100BAD5004F4F27 /* WLFlyViewController.m */; };
 		9B0B8C2E2100C18F004F4F27 /* WLFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0B8C2D2100C18F004F4F27 /* WLFirstViewController.m */; };
+		9B0B8C332100CF4E004F4F27 /* XCPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0B8C312100CF4D004F4F27 /* XCPageControl.m */; };
+		9B0B8C342100CF4E004F4F27 /* BannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0B8C322100CF4D004F4F27 /* BannerView.m */; };
+		9B0B8C372100CFAB004F4F27 /* BannerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0B8C362100CFAB004F4F27 /* BannerCollectionViewCell.m */; };
 		9B21C91420CC19B700E3A581 /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B21C91320CC19B700E3A581 /* iflyMSC.framework */; };
 		9B21C91620CC19FC00E3A581 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B21C91520CC19FC00E3A581 /* AudioToolbox.framework */; };
 		9B21C91820CC1A0C00E3A581 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B21C91720CC1A0C00E3A581 /* CoreLocation.framework */; };
@@ -457,6 +460,12 @@
 		9B0B8C242100BAD5004F4F27 /* WLFlyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLFlyViewController.m; sourceTree = "<group>"; };
 		9B0B8C2C2100C18F004F4F27 /* WLFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLFirstViewController.h; sourceTree = "<group>"; };
 		9B0B8C2D2100C18F004F4F27 /* WLFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLFirstViewController.m; sourceTree = "<group>"; };
+		9B0B8C2F2100CF4B004F4F27 /* BannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerView.h; sourceTree = "<group>"; };
+		9B0B8C302100CF4C004F4F27 /* XCPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPageControl.h; sourceTree = "<group>"; };
+		9B0B8C312100CF4D004F4F27 /* XCPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCPageControl.m; sourceTree = "<group>"; };
+		9B0B8C322100CF4D004F4F27 /* BannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerView.m; sourceTree = "<group>"; };
+		9B0B8C352100CFAA004F4F27 /* BannerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerCollectionViewCell.h; sourceTree = "<group>"; };
+		9B0B8C362100CFAB004F4F27 /* BannerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerCollectionViewCell.m; sourceTree = "<group>"; };
 		9B21C91320CC19B700E3A581 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iflyMSC.framework; sourceTree = "<group>"; };
 		9B21C91520CC19FC00E3A581 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9B21C91720CC1A0C00E3A581 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1961,6 +1970,12 @@
 		9BF66489204FDA5C0072E869 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				9B0B8C352100CFAA004F4F27 /* BannerCollectionViewCell.h */,
+				9B0B8C362100CFAB004F4F27 /* BannerCollectionViewCell.m */,
+				9B0B8C2F2100CF4B004F4F27 /* BannerView.h */,
+				9B0B8C322100CF4D004F4F27 /* BannerView.m */,
+				9B0B8C302100CF4C004F4F27 /* XCPageControl.h */,
+				9B0B8C312100CF4D004F4F27 /* XCPageControl.m */,
 				9B8DBF0920C2EA0000ED6317 /* UIView+Badge.h */,
 				9B8DBF0A20C2EA0000ED6317 /* UIView+Badge.m */,
 				9BF6648A204FDA860072E869 /* CustomeTitleView.h */,
@@ -2457,6 +2472,7 @@
 				9B796B1F20C28953000584F3 /* IdentifierValidator.m in Sources */,
 				9B3800091E6655A200BB23C1 /* KPool.m in Sources */,
 				9B38002A1E6657AE00BB23C1 /* NSObject+SBJson.m in Sources */,
+				9B0B8C332100CF4E004F4F27 /* XCPageControl.m in Sources */,
 				9B38002E1E6657AE00BB23C1 /* SBJsonStreamParserAdapter.m in Sources */,
 				9B499D9720CD398D0092E563 /* WLChatViewController.m in Sources */,
 				9B38000A1E6655A200BB23C1 /* KQueue.m in Sources */,
@@ -2482,6 +2498,7 @@
 				9B5C7917204CE0A500A764B7 /* BlockButton.m in Sources */,
 				9B5C790E204CD32D00A764B7 /* MyNavBar.m in Sources */,
 				9B8DBF0E20C2EA5900ED6317 /* HomeHeadTitleModel.m in Sources */,
+				9B0B8C342100CF4E004F4F27 /* BannerView.m in Sources */,
 				9B796B0820C283E3000584F3 /* LoadingViewController.m in Sources */,
 				9B38002F1E6657AE00BB23C1 /* SBJsonStreamParserState.m in Sources */,
 				9B796B3A20C2AE69000584F3 /* HomeBannerView.m in Sources */,
@@ -2515,6 +2532,7 @@
 				9BEF975D1E5FBE19007378CC /* main.m in Sources */,
 				9B499D9320CD36380092E563 /* XCWebViewController5.m in Sources */,
 				9BEF978D1E5FC5FD007378CC /* NavigationController.m in Sources */,
+				9B0B8C372100CFAB004F4F27 /* BannerCollectionViewCell.m in Sources */,
 				9B38002B1E6657AE00BB23C1 /* SBJsonParser.m in Sources */,
 				9BEF97B81E5FC941007378CC /* UIBarButtonItem+XC.m in Sources */,
 				9BEF97B91E5FC941007378CC /* UIIMage+Circle.m in Sources */,

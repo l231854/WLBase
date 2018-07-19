@@ -21,5 +21,9 @@
 #import "Reachability.h"
 #import "HttpRequest.h"
 #import "UINavigationBar+Awesome.h"
+#import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+#import "UIIMage+Circle.h"
+#import "BannerView.h"
 
 #endif /* WLBase_Prefix_pch */
