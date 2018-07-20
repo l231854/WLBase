@@ -8,6 +8,7 @@
 
 #import "DynamicForwardBtn.h"
 #import "HomeBannerModel.h"
+#import "WLConsultViewController.h"
 @interface DynamicForwardBtn ()<UIAlertViewDelegate>
 
 @property (nonatomic, weak) UIViewController* parentVC;
@@ -58,12 +59,13 @@
 
 -(void)dynamicHandleForward:(id)param
 {
-    
+    BOOL isAnimal = YES;
+
     switch ([self.dataSource.processId integerValue]) {
         case DynamicForwardType1:
         {
-            //        SupportTenementViewController *vc = [[SupportTenementViewController alloc] init];
-            //        [self.parentVC.navigationController pushViewController:vc animated:isAnimal];
+                    WLConsultViewController *vc = [[WLConsultViewController alloc] init];
+                    [self.parentVC.navigationController pushViewController:vc animated:isAnimal];
         }
             break;
         case DynamicForwardType2:

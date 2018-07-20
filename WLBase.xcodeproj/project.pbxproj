@@ -210,6 +210,12 @@
 		9B5C7911204CD3AF00A764B7 /* MBProgressHUD+ZH.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C790F204CD3AF00A764B7 /* MBProgressHUD+ZH.m */; };
 		9B5C7914204CD95A00A764B7 /* XCNavigationModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C7912204CD95A00A764B7 /* XCNavigationModalViewController.m */; };
 		9B5C7917204CE0A500A764B7 /* BlockButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C7916204CE0A500A764B7 /* BlockButton.m */; };
+		9B6945DA2101BE01008737DC /* WLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6945D92101BE01008737DC /* WLLoginViewController.m */; };
+		9B6945DD2101BEAE008737DC /* WLRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6945DC2101BEAE008737DC /* WLRegisterViewController.m */; };
+		9B6945E02101D793008737DC /* WLBusinessLocatedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6945DF2101D793008737DC /* WLBusinessLocatedViewController.m */; };
+		9B6945E32102233F008737DC /* WLConsultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6945E22102233F008737DC /* WLConsultViewController.m */; };
+		9B6945E721022B8B008737DC /* WLConsultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6945E621022B8B008737DC /* WLConsultTableViewCell.m */; };
+		9B6945EB21022BD2008737DC /* WLConsultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6945EA21022BD2008737DC /* WLConsultModel.m */; };
 		9B796B0220C28192000584F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B796B0120C28192000584F3 /* Images.xcassets */; };
 		9B796B0720C283E3000584F3 /* WZGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B796B0520C283E3000584F3 /* WZGuideViewController.m */; };
 		9B796B0820C283E3000584F3 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B796B0620C283E3000584F3 /* LoadingViewController.m */; };
@@ -714,6 +720,18 @@
 		9B5C7913204CD95A00A764B7 /* XCNavigationModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCNavigationModalViewController.h; sourceTree = "<group>"; };
 		9B5C7915204CE0A500A764B7 /* BlockButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockButton.h; sourceTree = "<group>"; };
 		9B5C7916204CE0A500A764B7 /* BlockButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockButton.m; sourceTree = "<group>"; };
+		9B6945D82101BE01008737DC /* WLLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLLoginViewController.h; sourceTree = "<group>"; };
+		9B6945D92101BE01008737DC /* WLLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLLoginViewController.m; sourceTree = "<group>"; };
+		9B6945DB2101BEAE008737DC /* WLRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLRegisterViewController.h; sourceTree = "<group>"; };
+		9B6945DC2101BEAE008737DC /* WLRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLRegisterViewController.m; sourceTree = "<group>"; };
+		9B6945DE2101D793008737DC /* WLBusinessLocatedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLBusinessLocatedViewController.h; sourceTree = "<group>"; };
+		9B6945DF2101D793008737DC /* WLBusinessLocatedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLBusinessLocatedViewController.m; sourceTree = "<group>"; };
+		9B6945E12102233F008737DC /* WLConsultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLConsultViewController.h; sourceTree = "<group>"; };
+		9B6945E22102233F008737DC /* WLConsultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLConsultViewController.m; sourceTree = "<group>"; };
+		9B6945E521022B8B008737DC /* WLConsultTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLConsultTableViewCell.h; sourceTree = "<group>"; };
+		9B6945E621022B8B008737DC /* WLConsultTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLConsultTableViewCell.m; sourceTree = "<group>"; };
+		9B6945E921022BD2008737DC /* WLConsultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLConsultModel.h; sourceTree = "<group>"; };
+		9B6945EA21022BD2008737DC /* WLConsultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLConsultModel.m; sourceTree = "<group>"; };
 		9B796B0120C28192000584F3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9B796B0320C283E2000584F3 /* WZGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZGuideViewController.h; sourceTree = "<group>"; };
 		9B796B0420C283E3000584F3 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
@@ -1378,9 +1396,29 @@
 			path = "登录P2";
 			sourceTree = "<group>";
 		};
+		9B6945E421022B66008737DC /* view */ = {
+			isa = PBXGroup;
+			children = (
+				9B6945E521022B8B008737DC /* WLConsultTableViewCell.h */,
+				9B6945E621022B8B008737DC /* WLConsultTableViewCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		9B6945E821022B9A008737DC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9B6945E921022BD2008737DC /* WLConsultModel.h */,
+				9B6945EA21022BD2008737DC /* WLConsultModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9B796B0C20C2870E000584F3 /* login */ = {
 			isa = PBXGroup;
 			children = (
+				9B6945E821022B9A008737DC /* Model */,
+				9B6945E421022B66008737DC /* view */,
 				9B95EC8420FF7963005C9CF3 /* ThirdLogin */,
 				9B4C371020C391BE0063052B /* image */,
 				9B4C370D20C391220063052B /* XCLoginViewController.h */,
@@ -1389,6 +1427,14 @@
 				9B442C4520C521FD00742B78 /* WLRegisterAndForgetViewController.m */,
 				9B0B8C2C2100C18F004F4F27 /* WLFirstViewController.h */,
 				9B0B8C2D2100C18F004F4F27 /* WLFirstViewController.m */,
+				9B6945D82101BE01008737DC /* WLLoginViewController.h */,
+				9B6945D92101BE01008737DC /* WLLoginViewController.m */,
+				9B6945DB2101BEAE008737DC /* WLRegisterViewController.h */,
+				9B6945DC2101BEAE008737DC /* WLRegisterViewController.m */,
+				9B6945DE2101D793008737DC /* WLBusinessLocatedViewController.h */,
+				9B6945DF2101D793008737DC /* WLBusinessLocatedViewController.m */,
+				9B6945E12102233F008737DC /* WLConsultViewController.h */,
+				9B6945E22102233F008737DC /* WLConsultViewController.m */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -2477,6 +2523,7 @@
 				9B499D9720CD398D0092E563 /* WLChatViewController.m in Sources */,
 				9B38000A1E6655A200BB23C1 /* KQueue.m in Sources */,
 				9BEF97631E5FBE19007378CC /* ViewController.m in Sources */,
+				9B6945DA2101BE01008737DC /* WLLoginViewController.m in Sources */,
 				9B3FF53620CA0F6500050B50 /* UIIMage+Empress.m in Sources */,
 				9BF66484204FCE5A0072E869 /* SearchViewController.m in Sources */,
 				9BEF97BA1E5FC941007378CC /* UIImage+JSH.m in Sources */,
@@ -2501,6 +2548,7 @@
 				9B0B8C342100CF4E004F4F27 /* BannerView.m in Sources */,
 				9B796B0820C283E3000584F3 /* LoadingViewController.m in Sources */,
 				9B38002F1E6657AE00BB23C1 /* SBJsonStreamParserState.m in Sources */,
+				9B6945DD2101BEAE008737DC /* WLRegisterViewController.m in Sources */,
 				9B796B3A20C2AE69000584F3 /* HomeBannerView.m in Sources */,
 				9BEF97B51E5FC941007378CC /* NSString+Encrypt.m in Sources */,
 				9B8DBF0820C2E9E700ED6317 /* XCJDTopListHeadView.m in Sources */,
@@ -2514,6 +2562,7 @@
 				9BF6647A204F8B3D0072E869 /* OtherViewController.m in Sources */,
 				9B3800461E665D5E00BB23C1 /* NSMutableDictionary+Safe.m in Sources */,
 				9BEF97961E5FC8F1007378CC /* PublicNavViewController.m in Sources */,
+				9B6945E02101D793008737DC /* WLBusinessLocatedViewController.m in Sources */,
 				9B499D9A20CD3A5E0092E563 /* WLChatModel.m in Sources */,
 				9BEF97601E5FBE19007378CC /* AppDelegate.m in Sources */,
 				9B3800301E6657AE00BB23C1 /* SBJsonStreamWriter.m in Sources */,
@@ -2522,6 +2571,8 @@
 				9BEF97B11E5FC941007378CC /* MyKeyChainHelper.m in Sources */,
 				9B499D9220CD36380092E563 /* XCWebViewController4.m in Sources */,
 				9B38000F1E66561000BB23C1 /* NSString+HXAddtions.m in Sources */,
+				9B6945E721022B8B008737DC /* WLConsultTableViewCell.m in Sources */,
+				9B6945EB21022BD2008737DC /* WLConsultModel.m in Sources */,
 				9BEF97C11E5FCC29007378CC /* TabBar.m in Sources */,
 				9B95EC8920FF7963005C9CF3 /* XCThirdBackResult.m in Sources */,
 				9B3800351E6657AE00BB23C1 /* SBJsonWriter.m in Sources */,
@@ -2543,6 +2594,7 @@
 				9B3800471E665D5E00BB23C1 /* NSObject+ImpChangeTool.m in Sources */,
 				9B5C7914204CD95A00A764B7 /* XCNavigationModalViewController.m in Sources */,
 				9B5C7903204CCC8200A764B7 /* SecondViewController.m in Sources */,
+				9B6945E32102233F008737DC /* WLConsultViewController.m in Sources */,
 				9B3800061E6655A200BB23C1 /* Kache.m in Sources */,
 				9BC37BE020CA8C19009261DE /* WLDrivceModel.m in Sources */,
 				9B3800311E6657AE00BB23C1 /* SBJsonStreamWriterAccumulator.m in Sources */,

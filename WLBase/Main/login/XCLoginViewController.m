@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title=@"食饭了登录";
+    self.title=@"我家餐厅登录";
     self.view.backgroundColor = [UIColor whiteColor];
     [self createUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleWeixinLoginAppResult:) name:@"weixinLogin" object:nil];

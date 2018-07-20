@@ -14,6 +14,9 @@
 #import "UIIMage+Empress.h"
 #import "IATConfig.h"
 #import "MBProgressHUD+ZH.h"
+
+//APP名字
+#define APPNAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]
 //推送需要的
 #define JPUSH_APPKEY @"cd27f62653b5a16d73f87489"
 #define PACKAGE_CHINNLE @"AppStore"
