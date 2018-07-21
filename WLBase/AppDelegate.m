@@ -52,7 +52,7 @@ BMKMapManager *_mapManager;
 
     
     //初始化微信
-    [WXApi registerApp:WEIXIN_APPKEY withDescription:@"0744"];
+//    [WXApi registerApp:WEIXIN_APPKEY withDescription:@"0744"];
     [self createShareSDK];
     //初始化科大讯飞语音
     //Set log level
@@ -81,6 +81,7 @@ BMKMapManager *_mapManager;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loadingViewController];
     [nav setNavigationBarHidden:YES animated:YES];
     [nav setToolbarHidden:YES animated:YES];
+    self.window.backgroundColor=[UIColor whiteColor];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     
@@ -115,7 +116,7 @@ BMKMapManager *_mapManager;
                                                     [appInfo SSDKSetupSinaWeiboByAppKey:@"568898243" appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3" redirectUri:@"http://www.sharesdk.cn" authType:SSDKAuthTypeBoth];
                                                     break;
                                                 case SSDKPlatformTypeWechat:
-                                                    [appInfo SSDKSetupWeChatByAppId: @"wx3b2c5c1d75784585" appSecret:@"bccb868b1e97af5d470784905f8212ee"];
+                                                    [appInfo SSDKSetupWeChatByAppId: @"wx4868b35061f87885" appSecret:@"64020361b8ec4c99936c0e3999a9f249"];
                                                     break;
                                                 case SSDKPlatformTypeQQ:
                                                     [appInfo SSDKSetupQQByAppId:@"100371282"appKey:@"aed9b0303e3ed1e27bae87c33761161d" authType:SSDKAuthTypeBoth];

@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self initNavigationItem];
+//    [self initNavigationItem];
 //    self.view.backgroundColor=[UIColor whiteColor];
     [self createUI];
 }
@@ -68,6 +68,8 @@
         self.tableview=[[UITableView alloc] init];
     }
     self.tableview.frame=CGRectMake(0, 20, WIDTH, HEIGHT-20);
+    self.tableview.backgroundColor=DEFAULT_BackgroundView_COLOR;
+
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
@@ -212,7 +214,7 @@
     [arrofData addObject:model1];
     HomeBannerModel *model2 = [[HomeBannerModel alloc] init];
     model2.headImageUrl=@"http://img05.tooopen.com/images/20150820/tooopen_sy_139205349641.jpg";
-    model2.processId=@"1";
+    model2.processId=@"2";
 
     [arrofData addObject:model2];
     

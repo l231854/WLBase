@@ -40,6 +40,7 @@
     if (IOS11) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"removeUITabBarButton" object:nil];
     }
+
     
     [self setNaviBarTransParent:YES];
     
@@ -257,6 +258,9 @@
     self.view.backgroundColor = DEFAULT_BackgroundView_COLOR;
     ////    self.automaticallyAdjustsScrollViewInsets = NO;
     //
+    [self.tabBarController.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+
     self.edgesForExtendedLayout = UIRectEdgeNone;
     //[self.navigationController.navigationBar showLineOfNavtionBar];
     [self setTitleBarTitleStyle];

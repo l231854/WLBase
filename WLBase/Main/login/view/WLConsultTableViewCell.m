@@ -43,8 +43,8 @@
     [self.contentView addSubview:self.lbOfTime];
     self.imageviewOfContent=[[UIImageView alloc] init];
     [self.contentView addSubview:self.imageviewOfContent];
-    self.lbOfContent=[[UILabel alloc] init];
-    [self.contentView addSubview:self.lbOfContent];
+    self.textviewOfContent=[[UITextView alloc] init];
+    [self.contentView addSubview:self.textviewOfContent];
 }
 - (void)setModel:(WLConsultModel *)model
 {
@@ -64,11 +64,11 @@
         [self.imageviewOfContent sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
         
 //        CGSize size =XCsizeWithFont(, <#font#>)
-        self.lbOfContent.frame=CGRectMake(WLsize(10.0), CGRectGetMaxY(self.imageviewOfContent.frame), WIDTH-WLsize(20.0), HEIGHT-XCStatusBar-CGRectGetMaxY(self.imageviewOfContent.frame));
-        self.lbOfContent.textColor=UIColorFromRGB(0x101010, 1);
-        self.lbOfContent.font=[UIFont systemFontOfSize:14.0];
-        self.lbOfContent.numberOfLines=0;
-        self.lbOfContent.text=model.content;
+        self.textviewOfContent.frame=CGRectMake(WLsize(10.0), CGRectGetMaxY(self.imageviewOfContent.frame), WIDTH-WLsize(20.0), HEIGHT-XCStatusBar-CGRectGetMaxY(self.imageviewOfContent.frame));
+        self.textviewOfContent.textColor=UIColorFromRGB(0x101010, 1);
+        self.textviewOfContent.font=[UIFont systemFontOfSize:14.0];
+//        self.textviewOfContent.numberOfLines=0;
+        self.textviewOfContent.text=model.content;
         
         
     }

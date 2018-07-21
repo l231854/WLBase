@@ -11,6 +11,8 @@
 @interface UIView (Badge)
 
 //显示数字
+-(void)setNewBadge:(NSString *)badgeString;
+//显示数字
 -(void)setBadge:(NSString *)badgeString;
 //显示红点
 -(void)setRedBadge:(BOOL)flag isInt:(BOOL)isint;

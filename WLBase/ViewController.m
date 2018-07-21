@@ -50,18 +50,7 @@
     }
 
     if (!_customTabBar) {
-//        UIImageView *imageView2 = [[UIImageView alloc] init];
-//
-//        imageView2.frame = CGRectMake(WIDTH/2-30, self.tabBar.frame.origin.y-35 - space, 60, 60);
-//        [imageView2 setBackgroundColor:[UIColor whiteColor]];
-//        [self.view addSubview:imageView2];
-//        [self.view insertSubview:imageView2 atIndex:0];
-//
-//        self.rectImageView = imageView2;
-//        imageView2.clipsToBounds = YES;
-//        imageView2.layer.cornerRadius = 30;
-//        imageView2.layer.borderWidth = 0.5;
-//        imageView2.layer.borderColor = [UIColor colorWithRed:167.0/255.0 green:167.0/255.0 blue:167.0/255.0 alpha:1.0].CGColor;
+
 
                 TabBar *customTabBar = [[TabBar alloc] init];
                 customTabBar.frame = self.tabBar.bounds;
@@ -72,15 +61,7 @@
 
     }
     return _customTabBar;
-//    if (!_customTabBar) {
-//        TabBar *customTabBar = [[TabBar alloc] init];
-//        customTabBar.frame = self.tabBar.bounds;
-//        customTabBar.delegate = self;
-//        [self.tabBar addSubview:customTabBar];
-//        self.customTabBar = customTabBar;
-//
-//    }
-//    return _customTabBar;
+
 }
 #pragma mark init方法内部调用
 
@@ -98,9 +79,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-}
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSwitchToFirstTab) name:KSwitchToFirstTabNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSwitchToSecondTab) name:KSwitchToSecondTabNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSwitchToThirdTab) name:KSwitchToThirdTabNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSwitchToFourthTab) name:KSwitchToFourthTabNotification object:nil];
 
+
+}
+#pragma mark --跳转到第几个
+- (void)handleSwitchToFirstTab
+{
+    [self.customTabBar tabBarButtonClick:self.customTabBar.tabBarButtons[0]];
+
+}
+- (void)handleSwitchToSecondTab
+{
+    [self.customTabBar tabBarButtonClick:self.customTabBar.tabBarButtons[1]];
+
+}
+- (void)handleSwitchToThirdTab
+{
+    [self.customTabBar tabBarButtonClick:self.customTabBar.tabBarButtons[2]];
+
+}
+- (void)handleSwitchToFourthTab
+{
+    [self.customTabBar tabBarButtonClick:self.customTabBar.tabBarButtons[3]];
+
+}
 - (void)backHomepage
 {
     [self.customTabBar tabBarButtonClick:self.customTabBar.tabBarButtons[0]];

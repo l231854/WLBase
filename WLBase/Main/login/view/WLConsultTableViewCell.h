@@ -12,7 +12,7 @@
 @property (nonatomic,strong) UILabel *lbOfName;
 @property (nonatomic,strong) UILabel *lbOfTime;
 @property (nonatomic,strong) UIImageView *imageviewOfContent;
-@property (nonatomic,strong) UILabel *lbOfContent;
+@property (nonatomic,strong) UITextView *textviewOfContent;
 @property (nonatomic,strong) WLConsultModel *model;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

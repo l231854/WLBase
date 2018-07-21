@@ -1,26 +1,29 @@
 //
-//  ThirdViewController.m
+//  WLShopInformationViewController.m
 //  WLBase
 //
-//  Created by 雷王 on 2018/3/5.
+//  Created by 雷王 on 2018/7/21.
 //  Copyright © 2018年 WL. All rights reserved.
 //
 
-#import "ThirdViewController.h"
+#import "WLShopInformationViewController.h"
+#import "WLReceiptViewController.h"
 #define KCellHeight WLsize(90.0)
-@interface ThirdViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface WLShopInformationViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSMutableArray *arrayOfData;
 
 @end
 
-@implementation ThirdViewController
+@implementation WLShopInformationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.arrayOfData=[[NSMutableArray alloc] initWithObjects:@"营销管理", @"商品管理",@"餐桌管理",@"核销管理",nil];
+    self.title=@"门店信息";
+    self.arrayOfData=[[NSMutableArray alloc] initWithObjects:@"基本信息", @"高级设置",@"店内设置",@"门店设置",@"支付设置",nil];
     [self createUI];
+    [self createRight];
     
     
 }
@@ -31,12 +34,32 @@
     if (self.tableview==nil) {
         self.tableview=[[UITableView alloc] init];
     }
-    self.tableview.frame=CGRectMake(0, XCStatusBar, WIDTH, HEIGHT-XCStatusBar-XCTbaBar);
+    self.tableview.frame=CGRectMake(0, 0, WIDTH, HEIGHT-XCStatusBar);
     self.tableview.backgroundColor=[UIColor whiteColor];
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableview];
+}
+#pragma mark--创建右侧按钮
+-(void)createRight
+{
+    UIButton *right = [UIButton buttonWithType:UIButtonTypeCustom];
+    right.frame=CGRectMake(0, 0, 40, 40);
+    //    [right setTitle:@"right" forState:UIControlStateNormal];
+    [right setImage:[UIImage imageNamed:@"icon11"] forState:UIControlStateNormal];
+    [right setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [right addTarget:self action:@selector(clickRight) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:right];
+    
+}
+
+
+#pragma mark --- 方法
+- (void)clickRight
+{
+    WLReceiptViewController *vc = [[WLReceiptViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -96,74 +119,30 @@
 #pragma mark --
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    switch (indexPath.row) {
+        case 0:
+            NSLog(@"%@",[self.arrayOfData objectAtIndex:0]);
+            break;
+        case 1:
+            NSLog(@"%@",[self.arrayOfData objectAtIndex:1]);
+            break;
+        case 2:
+            NSLog(@"%@",[self.arrayOfData objectAtIndex:2]);
+            break;
+        case 3:
+            NSLog(@"%@",[self.arrayOfData objectAtIndex:3]);
+            break;
+        case 4:
+            NSLog(@"%@",[self.arrayOfData objectAtIndex:4]);
+            break;
+            
+        default:
+            break;
+    }
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self initNavigationItem];
-    
-    
-}
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self initNavigationItem];
-    
-}
-- (void)initNavigationItem
-{
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
-    self.tabBarController.navigationItem.leftBarButtonItem = nil;
-    self.tabBarController.navigationItem.rightBarButtonItem = nil;
-    self.tabBarController.navigationItem.titleView = nil;
-    self.tabBarController.title = nil;
-    
-    self.tabBarController.title =@"运营管理";
-    
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{
-       NSForegroundColorAttributeName :[UIColor blackColor],
-       NSFontAttributeName : [UIFont systemFontOfSize:36/2]
-       }];
-    //    [self createNavigationItem];
-}
-#pragma mark---UI
-- (void)createNavigationItem{
-    UIButton *right = [UIButton buttonWithType:UIButtonTypeCustom];
-    right.frame=CGRectMake(0, 0, 40, 40);
-    //    [right setTitle:@"right" forState:UIControlStateNormal];
-    [right setImage:[UIImage imageNamed:@"icon11"] forState:UIControlStateNormal];
-    [right setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [right addTarget:self action:@selector(clickLeft) forControlEvents:UIControlEventTouchUpInside];
-    self.tabBarController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:right];
-    
-}
-
-
-#pragma mark --- 方法
-- (void)clickLeft
-{
-    
-}
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    self.tabBarController.title =nil;
-    self.tabBarController.navigationItem.rightBarButtonItem =nil;
-    
-}
-
-
 
 @end

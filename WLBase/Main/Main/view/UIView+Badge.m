@@ -242,5 +242,30 @@
     [self addSubview:badgeLabel];
 
 }
+-(void)setNewBadge:(NSString *)badgeString
+{
+    UILabel *lbOfBall = [[UILabel alloc] init];
+    lbOfBall.frame=CGRectMake(self.frame.size.width-18, 0, 20, 20);
+    lbOfBall.backgroundColor=[UIColor whiteColor];
+    lbOfBall.layer.masksToBounds=YES;
+    lbOfBall.layer.borderWidth=1.0;
+    lbOfBall.layer.cornerRadius=lbOfBall.frame.size.width/2.0;
+    lbOfBall.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+    lbOfBall.textColor=WLTEXTCOLOR;
+    if (badgeString.length==1) {
+        lbOfBall.font=[UIFont systemFontOfSize:14];
+    }
+    else{
+        if ([badgeString intValue]>99) {
+            badgeString=@"99";
+        }
+        lbOfBall.font=[UIFont systemFontOfSize:12];
+
+    }
+    lbOfBall.textAlignment=NSTextAlignmentCenter;
+    lbOfBall.text=badgeString;
+    [self addSubview:lbOfBall];
+    
+}
 
 @end

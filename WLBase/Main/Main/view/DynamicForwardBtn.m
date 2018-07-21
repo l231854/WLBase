@@ -9,6 +9,7 @@
 #import "DynamicForwardBtn.h"
 #import "HomeBannerModel.h"
 #import "WLConsultViewController.h"
+#import "WLHelperViewController.h"
 @interface DynamicForwardBtn ()<UIAlertViewDelegate>
 
 @property (nonatomic, weak) UIViewController* parentVC;
@@ -70,8 +71,8 @@
             break;
         case DynamicForwardType2:
         {
-            //        SupportTenementViewController *vc = [[SupportTenementViewController alloc] init];
-            //        [self.parentVC.navigationController pushViewController:vc animated:isAnimal];
+                    WLHelperViewController *vc = [[WLHelperViewController alloc] init];
+                    [self.parentVC.navigationController pushViewController:vc animated:isAnimal];
         }
             break;
         case DynamicForwardType3:

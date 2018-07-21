@@ -42,13 +42,21 @@
 
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
-
+//常用文字颜色
+#define WLTEXTCOLOR UIColorFromRGB(0x101010, 1)
 
 /**登录成功通知 */
 #define KLoginSuccessfulNotification @"KLoginSuccessfulNotification"
 #define KLoginFailNotification @"KLoginFailNotification"
 #define KLoginFailWithUserNameOrPassordIsNotRightNotification @"KLoginFailWithUserNameOrPassordIsNotRightNotification"
 #define kPhoneNumIsNotRightTip @"手机号无效"
+
+
+//tab跳转通知
+#define KSwitchToFirstTabNotification @"KSwitchToFirstTabNotification"
+#define KSwitchToSecondTabNotification @"KSwitchToSecondTabNotification"
+#define KSwitchToThirdTabNotification @"KSwitchToThirdTabNotification"
+#define KSwitchToFourthTabNotification @"KSwitchToFourthTabNotification"
 
 #pragma mark -- 颜色
 #define UIColorFromRGB(rgbValue,alphaValue) [UIColor \
