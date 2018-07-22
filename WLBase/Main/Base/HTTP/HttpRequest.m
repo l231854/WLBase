@@ -43,7 +43,7 @@ static dispatch_queue_t _mySerialQueue;
 +(void)getWebData:(NSDictionary *)params path:(NSString *)path method:(NSString *)method ishowLoading:(BOOL)show success:(void(^)(id object))success fail:(void(^)(NSString* msg))fail
 {
     
-    [self getWebData:params path:path method:method ishowLoading:show success:success fail:fail isNeedCache:YES cacheExpireTime:0 httpTimeout:10];//默认需要缓存， 而且timeout时间为10秒
+    [self getWebData:params path:path method:method ishowLoading:show success:success fail:fail isNeedCache:YES cacheExpireTime:0 httpTimeout:20];//默认需要缓存， 而且timeout时间为10秒
 }
 
 +(UIView*)getFLowerVC
@@ -223,12 +223,6 @@ static dispatch_queue_t _mySerialQueue;
     //    [self inithttps];
     if (isNeedCache)
     {
-        //        //初始化cache
-        //        if ( _kache == nil )
-        //        {
-        //            _kache = [[Kache alloc] initWithFiletoken:@"xcfamily"];
-        //        }
-        
         //cache线程
         if ( _mySerialQueue == nil )
         {
@@ -256,48 +250,17 @@ static dispatch_queue_t _mySerialQueue;
     
     if (show)
     {
-        //        BOOL isHUD = NO;
-        //        UIWindow *mainwindow = [[UIApplication sharedApplication].windows objectAtIndex:0];
-        //        for (UIView *v in mainwindow.subviews)
-        //        {
-        //            if ([v isKindOfClass:[MBProgressHUD class]])
-        //            {
-        //                isHUD=YES;
-        //            }
-        //        }
-        //        if (isHUD)
-        //        {
-        //
-        //            NSLog(@"isHUD");//有菊花，就不加
-        //        }
-        //        else
-        //        {
-        //
-        //            [MBProgressHUD showHUDAddedTo:[self getFLowerVC] animated:YES];//没有菊花就加
-        //        }
+       
     }
     
     //无网络返回cache内容
-    //    NSMutableURLRequest *request = nil;
     if ( isNeedCache )
     {
-        //        //初始化cache
-        //        NSError *serializationError = nil;
-        //        request = [manager.requestSerializer requestWithMethod:@"GET" URLString:[[NSURL URLWithString:path] absoluteString] parameters:params error:&serializationError];
-        
         AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         
         if ( appdelegate.networkStatus == NotReachable)
             
         {
-            //            if (show)
-            //            {
-            //                //cache回来后，取消菊花
-            //                //[MBProgressHUD hideHUDForView:[[UIApplication sharedApplication].windows objectAtIndex:0] animated:YES];
-            //            }
-            //
-            //            //id caceResponseObject = [Kache valueForKey:[request.URL absoluteString]];
-            
             return [self returnCacheIfHttpTimeout:params path:path success:success fail:fail];
         }
     }
@@ -326,10 +289,6 @@ static dispatch_queue_t _mySerialQueue;
                 //写缓存
                 dispatch_async(_mySerialQueue,
                                ^{
-                                   //                                   //cache
-                                   //                                   [Kache setValue:responseObject forKey:[request.URL absoluteString] expiredAfter:cacheExpireTime];
-                                   //                                   sleep(1);
-                                   
                                    [self writeCacheToDiskParams:params path:path responseStr:string];
                                    
                                });
@@ -338,8 +297,6 @@ static dispatch_queue_t _mySerialQueue;
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error.description);
-            //            NSLog(@"%@",operation.response.allHeaderFields);
-            
             //如果需要缓存
             if (isNeedCache)
             {

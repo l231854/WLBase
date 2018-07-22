@@ -7,7 +7,7 @@
 //
 
 #import "WLShopServiceViewController.h"
-
+#import "WLHelpDishesViewController.h"
 @interface WLShopServiceViewController ()
 
 @end
@@ -37,6 +37,11 @@
         view.layer.cornerRadius=10.0;
         view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
         [self.view addSubview:view];
+        view.userInteractionEnabled=YES;
+        view.tag=i+1;
+        UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickView:)];
+        [view addGestureRecognizer:ges];
+        
         
         UIImageView *imageview =[[UIImageView alloc] init];
         imageview.frame=CGRectMake((view.frame.size.width-WLsize(60.0))/2.0, WLsize(23.0), WLsize(60.0), WLsize(60.0));
@@ -66,7 +71,7 @@
     [right setImage:[UIImage imageNamed:@"icon11"] forState:UIControlStateNormal];
     [right setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [right addTarget:self action:@selector(clickRight) forControlEvents:UIControlEventTouchUpInside];
-    [right setNewBadge:@"591"];
+    [right setNewBadge:@"5"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:right];
     
 }
@@ -78,6 +83,27 @@
   
 }
 
+#pragma mark --点击各个模块
+- (void)clickView:(UIGestureRecognizer *)ges
+{
+    NSInteger tag = [ges view].tag;
+    if (tag==1) {
+        //员工帮点
+        WLHelpDishesViewController *vc = [[WLHelpDishesViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (tag==2)
+    {
+        //餐桌管理
+        
+    }
+    else if (tag==3)
+    {
+        //买单收款
+        
+    }
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

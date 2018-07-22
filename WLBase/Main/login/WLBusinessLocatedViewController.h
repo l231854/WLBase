@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface WLBusinessLocatedViewController : BaseViewController
-
+@property (nonatomic,copy) NSString *phone;
 @end

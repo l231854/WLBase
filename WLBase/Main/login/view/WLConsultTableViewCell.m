@@ -59,6 +59,9 @@
         self.lbOfTime.textColor=UIColorFromRGB(0x101010, 1);
         self.lbOfTime.font =[UIFont systemFontOfSize:WLsize(14.0)];
         self.lbOfTime.text=[NSString stringWithFormat:@"%@  %@",APPNAME,model.time];
+        self.lbOfName.userInteractionEnabled=YES;
+        UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickConsult:)];
+        [self.lbOfName addGestureRecognizer:ges];
         
         self.imageviewOfContent.frame=CGRectMake(WLsize(10.0), CGRectGetMaxY(self.lbOfTime.frame)+WLsize(17.0),WIDTH-WLsize(20.0), WLsize(150.0));
         [self.imageviewOfContent sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
@@ -73,6 +76,14 @@
         
     }
     
+}
+
+#pragma mark --点击食饭了咨询
+-(void)clickConsult:(UIGestureRecognizer *)ges
+{
+    if ([self clickShow]) {
+        [self clickShow](YES);
+    }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

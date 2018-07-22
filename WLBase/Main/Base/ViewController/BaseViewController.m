@@ -234,14 +234,6 @@
 
 
 
-//-(void)setTitleBarStyle
-//{
-//    NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:KDefaultTitleViewTitleColor, NSForegroundColorAttributeName,
-//                                               KDefaultTitleViewTitleFont, NSFontAttributeName, nil];
-//
-//    [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
-////    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
-//}
 
 -(void)setNavBarWhiteAndUntransparent
 {
@@ -288,19 +280,11 @@
     
 }
 
-//-(void)buildCustomNavBar
-//{
-//    self.navigationController.navigationBar.hidden = YES;
-//
-//    self.myNavBar = [[MyNavBar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64)];
-//    [self.view addSubview:self.myNavBar];
-//    [self.myNavBar.backBtn addTarget:self action:@selector(backBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    self.myNavBar.barTintColor = [UIColor whiteColor];
-//}
+
 
 -(void)buildBackBarButtonItemWhiteColor
 {
-    UIImage* img = [UIImage imageNamed:@"backw"];
+    UIImage* img = [UIImage imageNamed:@"Back2_icon"];
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, img.size.width, img.size.height);
     [btn setImage:img forState:UIControlStateNormal];
@@ -335,7 +319,7 @@
     self.navigationItem.leftBarButtonItem = nil;
     
     if ([self.parentViewController isKindOfClass:[XCNavigationModalViewController class]] && self.navigationController.viewControllers.count == 1) {
-        UIImage* img = [UIImage imageNamed:@"nav_icon_back"];
+        UIImage* img = [UIImage imageNamed:@"Back2_icon"];
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(0, 0, img.size.width, img.size.height);
         [btn setImage:img forState:UIControlStateNormal];
@@ -346,7 +330,7 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     }else
     {
-        UIImage* img = [UIImage imageNamed:@"nav_icon_back"];
+        UIImage* img = [UIImage imageNamed:@"Back2_icon"];
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         //btn.backgroundColor = [UIColor redColor];
         btn.frame = CGRectMake(0, 0, img.size.width, img.size.height);
@@ -472,7 +456,7 @@
 
 - (void)showFailRequestView:(BOOL)isShow  failBlock:(void(^)( id obj))failBlock
 {
-    NSString *title =  @"小橙刚才走神了，再试一次吧";
+    NSString *title =  @"刚才走神了，再试一次吧";
     CGSize size = [title sizeOfTextWidthAndHeightWithFont:15 withWidth:(WIDTH- 30)];
     if (isShow) {
         
@@ -534,7 +518,7 @@
 
 - (void)showWaitLoadingView:(BOOL)isShow
 {
-    NSString *title = @"小橙正在为你努力加载，请稍后...";
+    NSString *title = @"正在为你努力加载，请稍后...";
     CGSize size = [title sizeOfTextWidthAndHeightWithFont:15 withWidth:(WIDTH- 30)];
     if (isShow) {
         

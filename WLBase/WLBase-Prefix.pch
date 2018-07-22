@@ -26,4 +26,7 @@
 #import "UIIMage+Circle.h"
 #import "BannerView.h"
 #import "UIView+Badge.h"
+#import "ServerHostName.h"
+#import "MobileData.h"
+#import "WLURL.h"
 #endif /* WLBase_Prefix_pch */

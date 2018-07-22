@@ -15,6 +15,22 @@
 #import "IATConfig.h"
 #import "MBProgressHUD+ZH.h"
 
+
+#warning 发布时要更新
+//服务器环境选择
+//#define XCCM_OnlinePackage     //线上环境 http://mobile.xcfamily.cn:19988
+//#define XCCM_PreOnlinePackage  //预发布环境 http://122.144.135.81:19988
+#define XCCM_testPackage        //开发环境 http://61.132.109.16:8088/
+
+
+//release优化  发APPStore版前一定要打开该宏
+//#define RealeasePackage
+#define DebugPackage
+
+#ifdef RealeasePackage//__OPTIMIZE__
+#define NSLog(...)
+#endif
+
 //APP名字
 #define APPNAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]
 //推送需要的
@@ -186,6 +202,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:alphaValue]
 #define KDefaultTitleViewTitleColor ( UIColorFromRGB(0x333333, 1.0) )
 #define KDefaultTitleViewTitleFont ( [UIFont systemFontOfSize:36/2] )
 #define KDefaultTitleViewBgColor ( [UIColor whiteColor] )
+
+#define WLORANGColor UIColorFromInt(249, 104, 28, 1)
+#define WLNEWTEXTColor UIColorFromInt(102, 102, 102, 1)
+#define WLSEPLBColor UIColorFromInt(220, 220, 220, 1)
 
 
 #define UIColorFromInt(redValue, greenValue, blueValue, alphaValue) [UIColor colorWithRed:(redValue)/255.0f green:(greenValue)/255.0f blue:(blueValue)/255.0f alpha:(alphaValue)]

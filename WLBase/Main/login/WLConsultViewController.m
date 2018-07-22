@@ -92,7 +92,9 @@
     WLConsultTableViewCell *cell = [WLConsultTableViewCell cellWithTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.model = [self.arrayOfData objectAtIndex:indexPath.row];
-    
+    cell.clickShow = ^(BOOL isSuccess) {
+        
+    };
     return cell;
 }
 - (void)didReceiveMemoryWarning {
