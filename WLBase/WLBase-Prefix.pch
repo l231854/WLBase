@@ -29,4 +29,5 @@
 #import "ServerHostName.h"
 #import "MobileData.h"
 #import "WLURL.h"
+#import "AppDelegate.h"
 #endif /* WLBase_Prefix_pch */

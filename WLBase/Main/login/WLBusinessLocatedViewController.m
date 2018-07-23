@@ -7,22 +7,29 @@
 //
 
 #import "WLBusinessLocatedViewController.h"
+#import "LCHPickView.h"
 #define KCELLHeight WLsize(58)
 #define KCELLHeight11 WLsize(150)
 
-@interface WLBusinessLocatedViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate>
+@interface WLBusinessLocatedViewController ()<UITableViewDelegate,LCHPikhViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate>
+{
+    LCHPickView             *_businessPickView;
+
+}
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSMutableArray *arrayOfData;
 @property (nonatomic,strong) NSMutableArray *arrayOfDataRight;
 
-@property (nonatomic,strong) NSMutableArray *arrayOfTextfield;
+//@property (nonatomic,strong) NSMutableArray *arrayOfTextfield;
 @property (nonatomic,assign) BOOL selectTime;
 //主营标签
 @property (nonatomic,strong) NSMutableArray *arrayOfSign;
 @property (nonatomic,strong) NSMutableArray *arrayOfSignSelect;
+@property (nonatomic,strong) NSMutableArray *arrayOfBusiness;
 
 //主营标签的输入框
 @property (nonatomic,strong) UITextField *textfieldOfSign;
+@property (nonatomic,strong) UIButton *btnOfBox;
 
 @end
 
@@ -33,9 +40,9 @@
     // Do any additional setup after loading the view.
     self.title=@"商家入驻";
     self.selectTime=NO;
-    self.view.userInteractionEnabled=YES;
-    UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOther)];
-    [self.view addGestureRecognizer:ges];
+//    self.view.userInteractionEnabled=YES;
+//    UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOther)];
+//    [self.view addGestureRecognizer:ges];
     self.arrayOfData=[[NSMutableArray alloc] initWithObjects:@"邀请人",@"申请人",@"店铺名称",@"手机号码",@"接收短信号码",@"座机号码",@"地址",@"营业时间",@"主营业务",@"主营标签", nil];
     self.arrayOfDataRight=[[NSMutableArray alloc] initWithObjects:@"请输入邀请请人姓名",@"请输入申请人姓名",@"请输入店铺名称",@"",@"请输入可以接收短信的号码用以验证",@"请输入座机号码",@"请输入店铺地址",@"",@"请选择主营业务",@"请点击下面添加标签", nil];
 
@@ -44,19 +51,43 @@
     self.arrayOfSignSelect=[[NSMutableArray alloc] init];
     
     [self createUI];
+    self.arrayOfBusiness=[[NSMutableArray alloc] initWithObjects:@"粤菜",@"香菜",@"会菜", nil];
+    [self createPickView:self.arrayOfBusiness];
+}
+
+#pragma mark - 创建pickView
+- (void)createPickView:(NSMutableArray*)array
+{
+    _businessPickView = [[LCHPickView alloc] initWithTitle:@"选择主营业务" withleftArray:array withMiddleArr:nil withRightArray:nil delegate:self];
+    
+    _businessPickView.tag = 666;
+}
+#pragma mark - pickView回调方法
+- (void)pickView:(LCHPickView *)pickView withLeftRow:(NSInteger)leftRow withRightRow:(NSInteger)rightRow withMiddleRow:(NSInteger)middleRow
+{
+    
+    if (pickView.tag==666) {
+        NSString *selectText = [self.arrayOfBusiness objectAtIndex:leftRow];
+        for (UITextField *textfiled in self.arrayOfTextfield) {
+            if ((textfiled.tag-1000)==8) {
+                textfiled.text=selectText;
+                break;
+            }
+        }
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self clickOther];
+//    [self clickOther];
 }
 #pragma mark ==点击空白取消键盘
--(void)clickOther
-{
-    for (UITextField *textfield in self.arrayOfTextfield) {
-            [textfield resignFirstResponder];
-    }
-}
+//-(void)clickOther
+//{
+//    for (UITextField *textfield in self.arrayOfTextfield) {
+//            [textfield resignFirstResponder];
+//    }
+//}
 #pragma mark --创建UI
 - (void)createUI{
     if (self.tableview==nil) {
@@ -120,20 +151,51 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell=nil;
-    if (indexPath.row<10) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+    if (indexPath.row<10 && indexPath.row!=7&& indexPath.row!=9) {
+        cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"UITableViewCell%ld",indexPath.row]];
+        if (cell==nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"UITableViewCell%ld",indexPath.row]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                [self createCell1:cell AtIndexPath:indexPath];
+                
+        }
+       
+      
+    }else if (indexPath.row==7)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"UITableViewCell%ld",indexPath.row]];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"UITableViewCell%ld",indexPath.row]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [self createCell1:cell AtIndexPath:indexPath];
+    }
+    else if (indexPath.row==9)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"UITableViewCell%ld",indexPath.row]];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"UITableViewCell%ld",indexPath.row]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [self createCell1:cell AtIndexPath:indexPath];
-    }else{
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [self createCell2:cell AtIndexPath:indexPath];
+    }
+    else{
+        cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"UITableViewCell%ld",indexPath.row]];
+        if (cell==nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"UITableViewCell%ld",indexPath.row]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [self createCell2:cell AtIndexPath:indexPath];
+            
+        }
     }
     
     
     return cell;
 }
 
+
+#pragma mark 00点击出现下拉主营业务栏
+- (void)clickBuiness:(UIButton *)button
+{
+    [_businessPickView showInView];
+
+}
 #pragma mark --创建cell
 - (void)createCell1:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
@@ -162,6 +224,7 @@
             }
             textfield.delegate=self;
             [cell.contentView addSubview:textfield];
+            textfield.tag=1000+indexPath.row;
             [self.arrayOfTextfield addObject:textfield];
             UILabel *lbOf1 = [[UILabel alloc] init];
             lbOf1.frame=CGRectMake(CGRectGetMaxX(textfield.frame)-WLsize(8.0), (KCELLHeight-24)/2.0, 24.0, 24.0);
@@ -299,8 +362,15 @@
             imageview.frame=CGRectMake(WIDTH-31, (KCELLHeight-10.0)/2.0, 10.0, 10.0);
             imageview.image =[UIImage imageNamed:@"dropdown_icon"];
             imageview.hidden=YES;
+            UIButton *btnOfMore = [[UIButton alloc] init];
+            btnOfMore.frame = CGRectMake(WIDTH-WLsize(280), 0, WLsize(280), KCELLHeight);
+            [btnOfMore addTarget:self action:@selector(clickBuiness:) forControlEvents:UIControlEventTouchUpInside];
+            btnOfMore.hidden=YES;
+
             if (indexPath.row==3) {
                 textfield.text=self.phone;
+                textfield.userInteractionEnabled=NO;
+
             }
             else if (indexPath.row==8)
             {
@@ -308,9 +378,12 @@
                 imageview.hidden=NO;
                 [cell.contentView addSubview:imageview];
                 textfield.userInteractionEnabled=NO;
+                btnOfMore.hidden=NO;
+                [cell.contentView addSubview:btnOfMore];
             }
             textfield.delegate=self;
             [cell.contentView addSubview:textfield];
+            textfield.tag=1000+indexPath.row;
             [self.arrayOfTextfield addObject:textfield];
         }
     
@@ -320,10 +393,10 @@
     cell.contentView.backgroundColor=DEFAULT_BackgroundView_COLOR;
     UIButton *btnSelect = [[UIButton alloc] init];
     btnSelect.frame=CGRectMake(WLsize(10.0),(KCELLHeight-WLsize(20))/2.0, WLsize(20), WLsize(20));
-    [btnSelect setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [btnSelect setImage:[UIImage imageNamed:@"box_right_icon"] forState:UIControlStateNormal];
     [btnSelect addTarget:self action:@selector(clickAllow:) forControlEvents:UIControlEventTouchUpInside];
-        btnSelect.backgroundColor=[UIColor grayColor];
     btnSelect.selected=YES;
+    self.btnOfBox=btnSelect;
     [cell.contentView addSubview:btnSelect];
     
     UILabel *lbOfContent = [[UILabel alloc] init];
@@ -407,16 +480,89 @@
 {
     button.selected=!button.selected;
     if (button.selected) {
-        [button setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"box_right_icon"] forState:UIControlStateNormal];
 
     }else{
-        [button setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"box_icon"] forState:UIControlStateNormal];
 
     }
 }
+-(NSString *)returnText:(NSInteger)count
+{
+    NSString *text=@"";
+    for (UITextField *textfiled in self.arrayOfTextfield) {
+        if ((textfiled.tag-1000)==count) {
+            text=textfiled.text;
+            break;
+        }
+    }
+    return text;
+}
 #pragma mark --点击确定
 -(void)clickSure{
-    
+    if (!self.btnOfBox.selected) {
+        [MBProgressHUD showWithMessage:@"请勾选协议！"];
+        return;
+    }
+    NSString *str1=[self returnText:0];
+    if (str1.length<=0) {
+        [MBProgressHUD showWithMessage:[self.arrayOfDataRight objectAtIndex:0]];
+        return;
+    }
+    NSString *str2=[self returnText:1];
+    if (str2.length<=0) {
+        [MBProgressHUD showWithMessage:[self.arrayOfDataRight objectAtIndex:1]];
+        return;
+    }
+    NSString *str3=[self returnText:2];
+    if (str3.length<=0) {
+        [MBProgressHUD showWithMessage:[self.arrayOfDataRight objectAtIndex:2]];
+        return;
+    }
+    NSString *str4=self.phone;
+//    if (str1.length<=0) {
+//        [MBProgressHUD showWithMessage:[self.arrayOfDataRight objectAtIndex:0]];
+//    }
+    NSString *str5=[self returnText:4];
+    if (str5.length<=0) {
+        [MBProgressHUD showWithMessage:[self.arrayOfDataRight objectAtIndex:4]];
+        return;
+    }
+    NSString *str6=[self returnText:5];
+    if (str6.length<=0) {
+        [MBProgressHUD showWithMessage:[self.arrayOfDataRight objectAtIndex:5]];
+        return;
+    }
+    NSString *str7=[self returnText:6];
+    if (str7.length<=0) {
+        [MBProgressHUD showWithMessage:[self.arrayOfDataRight objectAtIndex:6]];
+        return;
+    }
+    NSString *str8=@"";
+    if (str8.length<=0) {
+        [MBProgressHUD showWithMessage:@"请添加营业时间"];
+        return;
+    }
+    NSString *str9=[self returnText:8];
+    if (![str9 isEqualToString:@"请选择主营业务"]) {
+        [MBProgressHUD showWithMessage:[self.arrayOfDataRight objectAtIndex:8]];
+        return;
+    }
+    NSString *str10=@"";
+    for (int i=0; i<self.arrayOfSignSelect.count; i++) {
+        if (i==0) {
+            str10=[self.arrayOfSignSelect objectAtIndex:i];
+        }
+        else{
+            str10=[NSString stringWithFormat:@"%@%@",str10,[self.arrayOfSignSelect objectAtIndex:i]];
+
+        }
+    }
+    if (str10.length<=0) {
+        [MBProgressHUD showWithMessage:[self.arrayOfDataRight objectAtIndex:9]];
+        return;
+    }
+
 }
 
 #pragma mark --UIAlertViewController

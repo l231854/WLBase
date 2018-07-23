@@ -16,11 +16,11 @@
 #import "WLShopServiceViewController.h"
 #import "WLActivityManagerViewController.h"
 #import "WLShopManagerViewController.h"
-#define KCellHeight1 126.0/375*WIDTH
+#define KCellHeight1 170.0/375*WIDTH
 #define KCellHeight2 224.0/375*WIDTH
 #define KCellHeight3 267.0/375*WIDTH
-#define KCellHeight4 112.0/375*WIDTH
-#define KCellHeight5 91.0/375*WIDTH
+#define KCellHeight4 144.0/375*WIDTH
+#define KCellHeight5 100.0/375*WIDTH
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) BannerView *banner;
@@ -41,6 +41,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.isNeedWhite = YES;
     [self.tabBarController.navigationController setNavigationBarHidden:YES animated:NO];
 
 }
@@ -60,7 +61,7 @@
     if (self.tableview==nil) {
         self.tableview=[[UITableView alloc] init];
     }
-    self.tableview.frame=CGRectMake(0, 20, WIDTH, HEIGHT-20-XCTbaBar);
+    self.tableview.frame=CGRectMake(0, 0, WIDTH, HEIGHT-XCTbaBar);
     self.tableview.backgroundColor=DEFAULT_BackgroundView_COLOR;
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
@@ -141,15 +142,22 @@
 - (void)createCell1:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
     cell.contentView.backgroundColor=DEFAULT_BackgroundView_COLOR;
+    UIImageView *imageViewOfBackground = [[UIImageView alloc] init];
+    imageViewOfBackground.frame=CGRectMake(0, 0, WIDTH, KCellHeight1);
+    imageViewOfBackground.image=[UIImage imageNamed:@"home_top_bg"];
+    [cell.contentView addSubview:imageViewOfBackground];
+    
     UILabel *lb1 =[[UILabel alloc] init];
-    lb1.frame=CGRectMake(WLsize(10.0), 7.0/375*WIDTH, WIDTH, 23.0/375*WIDTH);
-    lb1.font=[UIFont systemFontOfSize:14.0/375*WIDTH];
-    lb1.textColor=UIColorFromRGB(0x101010, 1);
-    lb1.text=@"欢迎使用我家餐厅商家后台";
+    lb1.frame=CGRectMake(WLsize(12.0), WLsize(31.0), WIDTH, 23.0/375*WIDTH);
+    lb1.font=[UIFont systemFontOfSize:15.0/375*WIDTH];
+    lb1.textColor=[UIColor whiteColor];
+    lb1.text=@"欢迎使用我家餐厅";
     [cell.contentView addSubview:lb1];
+    
     CGFloat w1=WIDTH/3.0;
-    CGFloat h1=100.0/375*WIDTH;
-    CGFloat seph1=KCellHeight1-h1;
+    CGFloat h1=80.0/375*WIDTH;
+    CGFloat seph1=CGRectGetMaxY(lb1.frame)+WLsize(32.0);
+    NSArray *arrayOfImage = [[NSArray alloc] initWithObjects:@"pay_white_icon",@"order_white_icon",@"Stafforder_white_icon", nil];
     for (int i=0; i<3; i++) {
         UIView *view =[[UIView alloc] init];
         view.frame=CGRectMake(w1*i, seph1, w1, h1);
@@ -159,14 +167,13 @@
         [view addGestureRecognizer:ges];
         [cell.contentView addSubview:view];
         UIImageView *imageview = [[UIImageView alloc] init];
-        imageview.frame=CGRectMake(49.0/375*WIDTH, 30.0/375*WIDTH, 30.0/375*WIDTH,30.0/375*WIDTH);
-        imageview.image=[UIImage imageNamed:@""];
-        imageview.backgroundColor=[UIColor whiteColor];
+        imageview.frame=CGRectMake(49.0/375*WIDTH, 0, WLsize(40.0),WLsize(40.0));
+        imageview.image=[UIImage imageNamed:[arrayOfImage objectAtIndex:i]];
         [view addSubview:imageview];
         UILabel *lbOfText = [[UILabel alloc]init];
-        lbOfText.frame=CGRectMake(0, CGRectGetMaxY(imageview.frame)+3.0/375*WIDTH,w1 ,23.0/375*WIDTH);
+        lbOfText.frame=CGRectMake(imageview.frame.origin.x-WLsize(20.0), CGRectGetMaxY(imageview.frame)+12.0/375*WIDTH,imageview.frame.size.width+WLsize(40.0) ,23.0/375*WIDTH);
         lbOfText.font=[UIFont systemFontOfSize:WLsize(14.0)];
-        lbOfText.textColor=UIColorFromRGB(0x101010, 1);
+        lbOfText.textColor=[UIColor whiteColor];
         NSString *strContent=@"";
         switch (i) {
             case 0:
@@ -418,16 +425,13 @@
 - (void)createCell4:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
     UIView *view = [[UIView alloc] init];
-    view.frame=CGRectMake(0, WLsize(12.0), WIDTH, KCellHeight4-WLsize(12.0));
-    view.backgroundColor=[UIColor whiteColor];
-    view.layer.masksToBounds=YES;
-    view.layer.borderWidth=1.0;
-    view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+    view.frame=CGRectMake(0, 0, WIDTH, KCellHeight4);
+  
     [cell.contentView addSubview:view];
     NSMutableArray *arrofData = [[NSMutableArray alloc] init];
     HomeBannerModel *model1 = [[HomeBannerModel alloc] init];
     model1.headImageUrl=@"http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png";
-    model1.processId=@"1";
+    model1.processId=@"2";
     [arrofData addObject:model1];
     HomeBannerModel *model2 = [[HomeBannerModel alloc] init];
     model2.headImageUrl=@"http://img05.tooopen.com/images/20150820/tooopen_sy_139205349641.jpg";
@@ -437,42 +441,71 @@
     
     self.banner =  [[BannerView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, view.frame.size.height) andDataOfHomePageMedel:arrofData withViewController:self isNeedSeparator:NO];
     [view addSubview:self.banner];
+    
 }
 - (void)createCell5:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
+    cell.contentView.backgroundColor=DEFAULT_BackgroundView_COLOR;
     UIView *view = [[UIView alloc] init];
-    view.frame=CGRectMake(0, WLsize(9.0), WIDTH, KCellHeight5-WLsize(9.0));
+    view.frame=CGRectMake(0, WLsize(10.0), WIDTH, KCellHeight5-WLsize(10.0));
     view.backgroundColor=[UIColor whiteColor];
-    view.layer.masksToBounds=YES;
-    view.layer.borderWidth=1.0;
-    view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+    //    view.layer.masksToBounds=YES;
+    //    view.layer.borderWidth=1.0;
+    //    view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+    view.userInteractionEnabled=YES;
+    UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickCell5:)];
+    [view addGestureRecognizer:ges];
     [cell.contentView addSubview:view];
     
     UILabel *lb1 = [[UILabel alloc] init];
-    lb1.frame=CGRectMake(WLsize(10.0),0, WLsize(170.0),WLsize(38.0));
-    lb1.textColor=UIColorFromRGB(0x101010, 1);
-    lb1.font=[UIFont systemFontOfSize:WLsize(16.0)];
+    lb1.frame=CGRectMake(WLsize(13.0),WLsize(17.0), WLsize(170.0),WLsize(30.0));
+    lb1.textColor=UIColorFromInt(249, 104, 28, 1);
+    lb1.font=[UIFont systemFontOfSize:WLsize(15.0)];
     lb1.text=@"全网流量，多渠道获客";
     [view addSubview:lb1];
     UILabel *lb2 = [[UILabel alloc] init];
-    lb2.frame=CGRectMake(WLsize(10.0),CGRectGetMaxY(lb1.frame)+WLsize(5.0), WLsize(200.0),WLsize(23.0));
-    lb2.textColor=UIColorFromRGB(0x101010, 1);
+    lb2.frame=CGRectMake(WLsize(13.0),CGRectGetMaxY(lb1.frame)+WLsize(2.0), WLsize(260.0),WLsize(43.0));
+    lb2.textColor=WLNEWTEXTColor;
+    lb2.numberOfLines=2;
     lb2.font=[UIFont systemFontOfSize:WLsize(12.0)];
-    lb2.text=@"我家餐厅帮餐厅品牌在全网曝光与引流";
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.lineSpacing = WLsize(5.0);
+    lb2.text=@"我家餐厅帮餐厅品牌在全网曝光与引流我家餐厅帮餐厅品牌在全网曝光与引流我家餐厅帮餐厅品牌在全网曝光与引流";
+    //    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    //    [attributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
+    //    lb2.attributedText = [[NSAttributedString alloc] initWithString:@"我家餐厅帮餐厅品牌在全网曝光与引流我家餐厅帮餐厅品牌在全网曝光与引流我家餐厅帮餐厅品牌在全网曝光与引流" attributes:attributes];
     [view addSubview:lb2];
     
-    UIImageView *imageview1 = [[UIImageView alloc] init];
-    imageview1.frame=CGRectMake(WIDTH-WLsize(33.0), 0, WLsize(24.0), WLsize(24.0));
-    imageview1.image=[UIImage imageNamed:@""];
-    imageview1.backgroundColor=[UIColor grayColor];
-    [view addSubview:imageview1];
+    
+    UIView *viewBall = [[UIView alloc] init];
+    viewBall.frame=CGRectMake(WIDTH-WLsize(33.0), 0, WLsize(24.0), WLsize(24.0));
+    [view addSubview:viewBall];
+    for (int i=0; i<2; i++) {
+        UILabel *lbball1 = [[UILabel alloc] init];
+        lbball1.frame=CGRectMake(WLsize(10)*i, WLsize(12), WLsize(5), WLsize(5));
+        lbball1.layer.masksToBounds=YES;
+        lbball1.layer.cornerRadius=lbball1.frame.size.height/2.0;
+        if (i==0) {
+            lbball1.backgroundColor=WLORANGColor;
+        }
+        else{
+            lbball1.backgroundColor=UIColorFromInt(232, 232, 232, 1);
+        }
+        [viewBall addSubview:lbball1];
+    }
     UIImageView *imageview2 = [[UIImageView alloc] init];
-    imageview2.frame=CGRectMake(WIDTH-WLsize(58.0), CGRectGetMaxY(imageview1.frame), WLsize(48.0), WLsize(48.0));
-    imageview2.image=[UIImage imageNamed:@""];
-    imageview2.backgroundColor=[UIColor grayColor];
+    imageview2.frame=CGRectMake(WIDTH-WLsize(67.0), CGRectGetMaxY(viewBall.frame)+WLsize(5.0), WLsize(54.0), WLsize(54.0));
+    imageview2.image=[UIImage imageNamed:@"articlepic1"];
     [view addSubview:imageview2];
     
 }
+#pragma mark --点击cell4
+- (void)clickCell5:(UIGestureRecognizer *)ges
+{
+//    WLConsultViewController *vc =[[WLConsultViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark -click
 - (void)clickBtn:(UIButton *)btn
 {

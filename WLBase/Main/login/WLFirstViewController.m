@@ -45,7 +45,7 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
 
 //    [self.navigationController.navigationBar lt_reset];
 }
@@ -54,15 +54,8 @@
     
     self.isNeedWhite = YES;
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-//    self.tabBarController.navigationItem.leftBarButtonItem = nil;
-//    self.tabBarController.navigationItem.rightBarButtonItem = nil;
-//    self.tabBarController.navigationItem.titleView = nil;
-//    self.tabBarController.title = nil;
-//    UINavigationController *nav = self.tabBarController.navigationController;
-//    UIColor *color = DEFAULT_BackgroundView_COLOR;
-//    [nav.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:0]];
-//    [nav.navigationBar hideLineOfNavtionBar];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+
 
 }
 #pragma mark--- 创建UI

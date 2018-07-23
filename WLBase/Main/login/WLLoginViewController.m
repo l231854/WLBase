@@ -14,7 +14,6 @@
 @interface WLLoginViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong) UITextField *textfieldOfPhone;
 @property (nonatomic,strong) UITextField *textfieldOfCode;
-@property (nonatomic,strong) NSMutableArray *arrayOfTextfield;
 
 @property (nonatomic,assign) NSInteger selectType;
 
@@ -28,22 +27,22 @@
     self.title=@"我家餐厅登录";
     self.selectType=1;
     self.view.backgroundColor = DEFAULT_BackgroundView_COLOR;
-    self.view.userInteractionEnabled=YES;
-    UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOther)];
-    [self.view addGestureRecognizer:ges];
+//    self.view.userInteractionEnabled=YES;
+//    UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOther)];
+//    [self.view addGestureRecognizer:ges];
     [self createUI];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self clickOther];
+//    [self clickOther];
 }
 #pragma mark ==点击空白取消键盘
--(void)clickOther
-{
-    [self.textfieldOfCode resignFirstResponder];
-    [self.textfieldOfPhone resignFirstResponder];
-}
+//-(void)clickOther
+//{
+//    [self.textfieldOfCode resignFirstResponder];
+//    [self.textfieldOfPhone resignFirstResponder];
+//}
 -(void)createUI
 {
     UIView *view1 = [[UIView alloc] init];

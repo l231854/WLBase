@@ -13,7 +13,7 @@
 @interface WLRegisterViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong) UITextField *textfieldOfPhone;
 @property (nonatomic,strong) UITextField *textfieldOfCode;
-@property (nonatomic,strong) NSMutableArray *arrayOfTextfield;
+//@property (nonatomic,strong) NSMutableArray *arrayOfTextfield;
 
 @end
 
@@ -25,10 +25,7 @@
 
     self.title=@"注册";
     self.view.backgroundColor = DEFAULT_BackgroundView_COLOR;
-    self.view.userInteractionEnabled=YES;
-    UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOther)];
-    [self.view addGestureRecognizer:ges];
-    self.arrayOfTextfield=[[NSMutableArray alloc] init];
+
     [self createUI];
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -38,14 +35,14 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self clickOther];
+//    [self clickOther];
 }
 #pragma mark ==点击空白取消键盘
--(void)clickOther
-{
-    [self.textfieldOfCode resignFirstResponder];
-    [self.textfieldOfPhone resignFirstResponder];
-}
+//-(void)clickOther
+//{
+//    [self.textfieldOfCode resignFirstResponder];
+//    [self.textfieldOfPhone resignFirstResponder];
+//}
 #pragma mark --创建UI
 -(void)createUI
 {
@@ -149,13 +146,10 @@
     UIView *view2 = [[UIView alloc] init];
     view2.frame=CGRectMake(0, CGRectGetMaxY(lbOfTitle2.frame)+WLsize(5.0), WIDTH, hh2*temp1.count);
     view2.backgroundColor=[UIColor whiteColor];
-//    view2.layer.masksToBounds=YES;
-//    view2.layer.borderWidth=1.0;
-//    view2.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
     [self.view addSubview:view2];
     
     NSMutableArray *tempArray =[[NSMutableArray alloc] init];
-    for (int j=0; j<4; j++) {
+    for (int j=0; j<temp1.count; j++) {
         UIView *view3 = [[UIView alloc] init];
         view3.frame=CGRectMake(0,hh2*j, WIDTH, hh2);
         view3.backgroundColor=[UIColor whiteColor];

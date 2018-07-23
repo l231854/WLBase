@@ -154,19 +154,19 @@
 {
     // 首页
     MainViewController *home = [[MainViewController alloc] init];
-    [self setupOneChildVC:home title:@"首页" imageName:@"icon1 copy" selectedImageName:@"icon1"];
+    [self setupOneChildVC:home title:@"首页" imageName:@"tab_home_normal_icon" selectedImageName:@"tab_home_click_icon"];
     self.homePage = home;
     SecondViewController *second = [[SecondViewController alloc] init];
-    [self setupOneChildVC:second title:@"订单管理" imageName:@"icon2 copy" selectedImageName:@"icon2"];
+    [self setupOneChildVC:second title:@"订单管理" imageName:@"tab_ordermanagement_normal_icom" selectedImageName:@"tab_ordermanagement_click_icon"];
     self.secondVC = second;
 
     //
     ThirdViewController *third = [[ThirdViewController alloc] init];
-    [self setupOneChildVC:third title:@"运营管理" imageName:@"icon5 copy" selectedImageName:@"icon5"];
+    [self setupOneChildVC:third title:@"运营管理" imageName:@"tab_operationsmanagement_normal_icon" selectedImageName:@"tab_perationsmanagement_click_icon"];
     self.thirdVC = third;
 
     FourthViewController *fourth = [[FourthViewController alloc] init];
-    [self setupOneChildVC:fourth title:@"我的" imageName:@"icon4 copy" selectedImageName:@"icon4"];
+    [self setupOneChildVC:fourth title:@"我的" imageName:@"tab_mine_normal_icon" selectedImageName:@"tab_mine_click_icon"];
     self.fourthVC=fourth;
 
 //    OtherViewController *other = [[OtherViewController alloc] init];

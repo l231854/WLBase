@@ -15,7 +15,7 @@
 
 #define LeftNavBarItemOffset ( KGetSizeFromScreen(-3, -3, -6) )
 
-@interface BaseViewController ()<UIGestureRecognizerDelegate>
+@interface BaseViewController ()<UIGestureRecognizerDelegate,UITextFieldDelegate>
 
 
 @property (nonatomic, retain) UIImageView* naviCopyImgView;
@@ -53,6 +53,10 @@
         [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor clearColor]];
         [self.navigationController.navigationBar lt_setContentAlpha:0];
     }
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self clickOther];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -272,8 +276,45 @@
         
     }
     
+    self.view.userInteractionEnabled=YES;
+    UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOther)];
+    [self.view addGestureRecognizer:ges];
+
+}
+#pragma mark --创建回到首页的圆球
+- (void)createBallOfGoToHome
+{
+    self.viewOfGoToHome=[[UIImageView alloc] init];
+    self.viewOfGoToHome.frame=CGRectMake(WIDTH-WLsize(13.0)-WLsize(60.0), HEIGHT-XCStatusBar-WLsize(65.0)-WLsize(60), WLsize(60), WLsize(60));
+    self.viewOfGoToHome.layer.masksToBounds=YES;
+    self.viewOfGoToHome.layer.borderWidth=1.0/2;
+    self.viewOfGoToHome.layer.borderColor=WLSEPLBColor.CGColor;
+    self.viewOfGoToHome.layer.cornerRadius=self.viewOfGoToHome.frame.size.height/2.0;
+    self.viewOfGoToHome.image=[UIImage imageNamed:@"go_home_icon"];
+    UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickGoToHome)];
+    self.viewOfGoToHome.userInteractionEnabled=YES;
+    [self.viewOfGoToHome addGestureRecognizer:ges];
+    [self.view addSubview:self.viewOfGoToHome];
+    
+}
+#pragma mark --点击回到首页
+-(void)clickGoToHome
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+-(void)clickOther
+{
+    for (UITextField *textfield in self.arrayOfTextfield) {
+        [textfield resignFirstResponder];
+    }
 }
 
+#pragma mark --textDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self clickOther];
+    return YES;
+}
 - (void)backHomepage
 {
     [self.navigationController popToRootViewControllerAnimated:NO];

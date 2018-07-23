@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.strurl=@"http://180.76.162.182/home";
+//    self.strurl=@"http://180.76.162.182/home";
     [self createUI];
 
 }

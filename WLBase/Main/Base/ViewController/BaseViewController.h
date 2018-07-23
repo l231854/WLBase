@@ -17,6 +17,13 @@ typedef void(^BaseFailLoadingBlock)(NSString *str,id param);
 @property (nonatomic, retain) UIView* fakeNavView;
 @property(nonatomic,retain) MyNavBar* myNavBar;
 
+//存放
+@property (nonatomic,strong) NSMutableArray *arrayOfTextfield;
+@property (nonatomic,strong) UIImageView *viewOfGoToHome;
+
+//取消所有textfeld相应
+-(void)clickOther;
+- (void)createBallOfGoToHome;
 @property(nonatomic,strong)BaseFailLoadingBlock baseFailLoadingBlock;
 -(void)buildBackBarButtonItemWhiteColor;
 

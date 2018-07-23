@@ -83,7 +83,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:alphaValue]
 #pragma mark -- tabbar 字体的颜色
 #define WLTabbarNormalColor UIColorFromRGB(0x808080, 1.0)
 //#define WLTabbarSelectedColor UIColorFromRGB(0xff7f00, 1.0)
-#define WLTabbarSelectedColor ( [UIColor colorWithRed:41.0/255.0f green:177.0/255.0f blue:252/255.0f alpha:1.0] )
+#define WLTabbarSelectedColor WLORANGColor
 
 #define SeperatorLineTag ( 0x000035890 )
 
