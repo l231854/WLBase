@@ -58,14 +58,18 @@
     
     __weak UIButton* weak_image = self.image;
     [[weak_image imageView] setContentMode:UIViewContentModeCenter];
-    [self.image sd_setImageWithURL:[NSURL URLWithString:model.headImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"pic_null"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+    if (model.headImage.length>0&&model.headImage!=nil) {
+        [self.image setImage:[UIImage imageNamed:model.headImage] forState:UIControlStateNormal];
+    }
+    else{
+    [self.image sd_setImageWithURL:[NSURL URLWithString:model.headImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@""] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
     {
         //weak_image.imageView.contentMode = UIViewContentModeScaleAspectFill;
         
         if (!error)
         {
             //保存Image
-            model.headImage = image;
+//            model.headImage = image;
             
             //设置图片按比例填满
             weak_image.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -73,7 +77,8 @@
             weak_image.contentHorizontalAlignment= UIControlContentHorizontalAlignmentFill;
             weak_image.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
         }
-    }];  
+    }];
+    }
 }
 
 - (void)layoutSubviews

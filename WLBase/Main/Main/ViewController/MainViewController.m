@@ -16,16 +16,19 @@
 #import "WLShopServiceViewController.h"
 #import "WLActivityManagerViewController.h"
 #import "WLShopManagerViewController.h"
+#import "WLCustomeSelectTimeView.h"
 #define KCellHeight1 170.0/375*WIDTH
-#define KCellHeight2 224.0/375*WIDTH
-#define KCellHeight3 267.0/375*WIDTH
-#define KCellHeight4 144.0/375*WIDTH
+#define KCellHeight2 180.0/375*WIDTH
+#define KCellHeight3 292.0/375*WIDTH
+#define KCellHeight4 155.0/375*WIDTH
 #define KCellHeight5 100.0/375*WIDTH
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) BannerView *banner;
 //1=今天
 @property (nonatomic,assign) NSInteger selectOfTime;
+//选择时间view
+@property (nonatomic,strong) WLCustomeSelectTimeView *selectTimeView;
 
 @end
 
@@ -196,12 +199,13 @@
 - (void)createCell2:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
     UIView *view = [[UIView alloc] init];
-    view.frame=CGRectMake(0, WLsize(14.0), WIDTH, KCellHeight2-WLsize(14.0));
+    view.frame=CGRectMake(0, 0, WIDTH, KCellHeight2);
     view.backgroundColor=[UIColor whiteColor];
     view.layer.masksToBounds=YES;
-    view.layer.borderWidth=1.0;
-    view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+//    view.layer.borderWidth=1.0;
+//    view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
     [cell.contentView addSubview:view];
+    NSArray *tempImage=[[NSArray alloc] initWithObjects:@"service_icon",@"marketing_activities_icon",@"store_management_icon",@"financia_management_icon", nil];
     CGFloat ww = WIDTH/2.0;
     CGFloat hh = view.frame.size.height/2.0;
     for (int i=0; i<4; i++) {
@@ -215,14 +219,13 @@
         [view1 addGestureRecognizer:ges];
         [view addSubview:view1];
         UIImageView *imageview1 =[[UIImageView alloc] init];
-        imageview1.frame=CGRectMake((view1.frame.size.width-WLsize(24.0))/2.0, WLsize(37.0), WLsize(24.0), WLsize(24.0));
-        imageview1.image=[UIImage imageNamed:@""];
-        imageview1.backgroundColor=[UIColor grayColor];
+        imageview1.frame=CGRectMake((view1.frame.size.width-WLsize(40.0))/2.0, WLsize(13.0), WLsize(40.0), WLsize(40.0));
+        imageview1.image=[UIImage imageNamed:[tempImage objectAtIndex:i]];
         [view1 addSubview:imageview1];
         UILabel *lb1 =[[UILabel alloc] init];
-        lb1.frame= CGRectMake(0, CGRectGetMaxY(imageview1.frame)+WLsize(7.0), view1.frame.size.width, WLsize(23.0));
+        lb1.frame= CGRectMake(0, CGRectGetMaxY(imageview1.frame)+WLsize(10.0), view1.frame.size.width, WLsize(23.0));
         lb1.font=[UIFont systemFontOfSize:WLsize(14)];
-        lb1.textColor=UIColorFromRGB(0x101010, 1);
+        lb1.textColor=WLTEXTCOLOR;
         lb1.textAlignment=NSTextAlignmentCenter;
         [view1 addSubview:lb1];
         NSString *strText=@"";
@@ -247,77 +250,100 @@
         
     }
     UILabel *sep1 = [[UILabel alloc] init];
-    sep1.frame=CGRectMake(view.frame.size.width/2.0, WLsize(20.0), 1.0, view.frame.size.height-WLsize(40.0));
-    sep1.backgroundColor=UIColorFromRGB(0xBBBBBB, 1);
+    sep1.frame=CGRectMake(view.frame.size.width/2.0, WLsize(15.0), 1.0/2, view.frame.size.height-WLsize(30.0));
+    sep1.backgroundColor=WLSEPLBColor;
     [view addSubview:sep1];
     
     UILabel *sep2= [[UILabel alloc] init];
-    sep2.frame=CGRectMake(WLsize(25.0), view.frame.size.height/2.0, WIDTH-WLsize(50.0), 1.0);
-    sep2.backgroundColor=UIColorFromRGB(0xBBBBBB, 1);
+    sep2.frame=CGRectMake(WLsize(15.0), view.frame.size.height/2.0, WIDTH-WLsize(30.0), 1.0/2);
+    sep2.backgroundColor=WLSEPLBColor;
     [view addSubview:sep2];
 }
 - (void)createCell3:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
+    cell.contentView.backgroundColor=DEFAULT_BackgroundView_COLOR;
     UIView *view = [[UIView alloc] init];
-    view.frame=CGRectMake(0, WLsize(14.0), WIDTH, KCellHeight3-WLsize(14.0));
+    view.frame=CGRectMake(0, WLsize(13.0), WIDTH, KCellHeight3-WLsize(13.0));
     view.backgroundColor=[UIColor whiteColor];
-    view.layer.masksToBounds=YES;
-    view.layer.borderWidth=1.0;
-    view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+//    view.layer.masksToBounds=YES;
+//    view.layer.borderWidth=1.0;
+//    view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
     [cell.contentView addSubview:view];
     
     UIView *view1 = [[UIView alloc] init];
-    view1.frame=CGRectMake(0, WLsize(15.0), WIDTH, WLsize(23.0));
+    view1.frame=CGRectMake(0, WLsize(14.0), WIDTH, WLsize(31.0));
     [view addSubview:view1];
     UILabel *lb1 = [[UILabel alloc] init];
-    lb1.frame=CGRectMake(WLsize(15.0), 0, WLsize(70.0), WLsize(23.0));
+    lb1.frame=CGRectMake(WLsize(13.0), 0, WLsize(70.0), view1.frame.size.height);
     lb1.textColor=WLTEXTCOLOR;
-    lb1.font=[UIFont systemFontOfSize:WLsize(16.0)];
+    lb1.font=[UIFont systemFontOfSize:WLsize(15.0) weight:WLsize(15)];
     lb1.text=@"经营数据";
     [view1 addSubview:lb1];
-    CGFloat ww=WLsize(55.0);
+    CGFloat ww=WLsize(50.0);
     CGFloat sepx=WIDTH-WLsize(10.0)-ww;
-    for (int i=0; i<4; i++) {
+    NSArray *TempTime = [[NSArray alloc] initWithObjects:@"今天",@"一周内",@"两周内",@"一个月",@"选择", nil];
+    for (int i=0; i<TempTime.count; i++) {
         UIButton *btn1 =[[UIButton alloc] init];
         btn1.frame=CGRectMake(sepx, 0, ww, view1.frame.size.height);
         btn1.layer.masksToBounds=YES;
-        btn1.layer.borderWidth=1.0;
-        btn1.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
-        [btn1 setTitleColor:WLTEXTCOLOR forState:UIControlStateNormal];
-        btn1.titleLabel.font=[UIFont systemFontOfSize:WLsize(14.0)];
-        btn1.tag=4-i;
-        if ((4-i)==self.selectOfTime) {
-            btn1.backgroundColor=UIColorFromRGB(0xAEACAC, 1);
+//        btn1.layer.borderWidth=1.0/2.0;
+//        btn1.layer.borderColor=WLORANGColor.CGColor;
+        [btn1 setTitleColor:WLORANGColor forState:UIControlStateNormal];
+        btn1.titleLabel.font=[UIFont systemFontOfSize:WLsize(12.0)];
+        btn1.backgroundColor=[UIColor whiteColor];
+        btn1.tag=TempTime.count-i;
+        
+        //加边框
+        if (i<TempTime.count-1) {
+            //左边框
+            CALayer *leftLayer = [CALayer layer];
+            leftLayer.backgroundColor = WLORANGColor.CGColor;
+            leftLayer.frame = CGRectMake(0, 0, 1.0, btn1.frame.size.height);
+            [btn1.layer addSublayer:leftLayer];
+
+        }
+        if ((TempTime.count-i)==self.selectOfTime) {
+            if (i==0) {
+                UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:btn1.bounds byRoundingCorners:(UIRectCornerTopRight | UIRectCornerBottomRight) cornerRadii:CGSizeMake(WLsize(5),WLsize(5))];//圆角大小
+                CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+                maskLayer.frame = btn1.bounds;
+                maskLayer.path = maskPath.CGPath;
+                btn1.layer.mask = maskLayer;
+
+            }
+            else if (i==TempTime.count-1)
+            {
+                UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:btn1.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerBottomLeft) cornerRadii:CGSizeMake(WLsize(5),WLsize(5))];//圆角大小
+                CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+                maskLayer.frame = btn1.bounds;
+                maskLayer.path = maskPath.CGPath;
+                btn1.layer.mask = maskLayer;
+            }
+            btn1.backgroundColor=WLORANGColor;
+            [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
         else{
             btn1.backgroundColor=[UIColor whiteColor];
 
         }
         [btn1 addTarget:self action:@selector(clickTimeSection:) forControlEvents:UIControlEventTouchUpInside];
-        NSString *strTitle =@"";
-        switch (i) {
-            case 0:
-                strTitle=@"一月内";
-                break;
-            case 1:
-                strTitle=@"两周内";
-                break;
-            case 2:
-                strTitle=@"一周内";
-                break;
-            case 3:
-                strTitle=@"今天";
-                break;
-                
-            default:
-                break;
-        }
+        NSString *strTitle =[TempTime objectAtIndex:TempTime.count-1-i];
+       
         [btn1 setTitle:strTitle forState:UIControlStateNormal];
-        sepx=sepx-ww+1.0;
+        sepx=sepx-ww+1.0/2;
         [view1 addSubview:btn1];
     }
+    UIView *viewBG =[[UIView alloc] init];
+    viewBG.frame= CGRectMake(WIDTH-ww*TempTime.count+2.0-WLsize(10),0, ww*TempTime.count-2.0, view1.frame.size.height);
+    viewBG.layer.masksToBounds=YES;
+    viewBG.layer.cornerRadius=WLsize(5.0);
+    viewBG.layer.borderWidth=1.0/2;
+    viewBG.layer.borderColor=WLORANGColor.CGColor;
+    viewBG.userInteractionEnabled=NO;
+    [view1 addSubview:viewBG];
+    
     UILabel *lbOfTotalText =[[UILabel alloc] init];
-    lbOfTotalText.frame=CGRectMake(0, CGRectGetMaxY(view1.frame)+WLsize(12.0), WIDTH, WLsize(23.0));
+    lbOfTotalText.frame=CGRectMake(0, CGRectGetMaxY(view1.frame)+WLsize(23.0), WIDTH, WLsize(23.0));
     lbOfTotalText.textColor=WLTEXTCOLOR;
     lbOfTotalText.font=[UIFont systemFontOfSize:WLsize(14.0)];
     lbOfTotalText.textAlignment=NSTextAlignmentCenter;
@@ -325,47 +351,49 @@
     [view addSubview:lbOfTotalText];
     
     UILabel *lbOfTotalAmount =[[UILabel alloc] init];
-    lbOfTotalAmount.frame=CGRectMake(0, CGRectGetMaxY(lbOfTotalText.frame), WIDTH, WLsize(41.0));
+    lbOfTotalAmount.frame=CGRectMake(0, CGRectGetMaxY(lbOfTotalText.frame)+WLsize(10), WIDTH, WLsize(30.0));
     lbOfTotalAmount.textColor=WLTEXTCOLOR;
     lbOfTotalAmount.textAlignment=NSTextAlignmentCenter;
-    lbOfTotalAmount.font=[UIFont systemFontOfSize:WLsize(28.0)];
+    lbOfTotalAmount.font=[UIFont systemFontOfSize:WLsize(30.0)];
     lbOfTotalAmount.text=[NSString stringWithFormat:@"¥529.87"];
     [view addSubview:lbOfTotalAmount];
     
     //当前选择天数的收入
-    UILabel *lbOfSelectAmount =[[UILabel alloc] init];
-    lbOfSelectAmount.frame=CGRectMake(0, CGRectGetMaxY(lbOfTotalAmount.frame), WIDTH, WLsize(23.0));
-    lbOfSelectAmount.textColor=UIColorFromRGB(0x999999, 1);
-    lbOfSelectAmount.font=[UIFont systemFontOfSize:WLsize(14.0)];
-    lbOfSelectAmount.textAlignment=NSTextAlignmentCenter;
-    NSString *strText1=@"今日收入";
-    switch (self.selectOfTime) {
-        case 1:
-            strText1=@"今日收入";
-            break;
-        case 2:
-            strText1=@"一周内收入";
-            break;
-        case 3:
-            strText1=@"两周内收入";
-            break;
-        case 4:
-            strText1=@"一月内收入";
-            break;
-            
-        default:
-            break;
-    }
-    lbOfSelectAmount.text=[NSString stringWithFormat:@"%@ ¥%@",strText1,@"300.00"];
+//    UILabel *lbOfSelectAmount =[[UILabel alloc] init];
+//    lbOfSelectAmount.frame=CGRectMake(0, CGRectGetMaxY(lbOfTotalAmount.frame), WIDTH, WLsize(23.0));
+//    lbOfSelectAmount.textColor=UIColorFromRGB(0x999999, 1);
+//    lbOfSelectAmount.font=[UIFont systemFontOfSize:WLsize(14.0)];
+//    lbOfSelectAmount.textAlignment=NSTextAlignmentCenter;
+//    NSString *strText1=@"今日收入";
+//    switch (self.selectOfTime) {
+//        case 1:
+//            strText1=@"今日收入";
+//            break;
+//        case 2:
+//            strText1=@"一周内收入";
+//            break;
+//        case 3:
+//            strText1=@"两周内收入";
+//            break;
+//        case 4:
+//            strText1=@"一月内收入";
+//            break;
+//
+//        default:
+//            break;
+//    }
+//    lbOfSelectAmount.text=[NSString stringWithFormat:@"%@ ¥%@",strText1,@"300.00"];
     
-    [view addSubview:lbOfSelectAmount];
+//    [view addSubview:lbOfSelectAmount];
     
     UIView *view2 =[[UIView alloc] init];
-    view2.frame=CGRectMake(0, CGRectGetMaxY(lbOfSelectAmount.frame)+WLsize(10.0), WIDTH, WLsize(46.0));
+    view2.frame=CGRectMake(0, CGRectGetMaxY(lbOfTotalAmount.frame)+WLsize(25.0), WIDTH, WLsize(55.0));
     [view addSubview:view2];
     
     CGFloat wwj=WIDTH/3.0;
-    CGFloat hhj =WLsize(23.0);
+    CGFloat hhj =WLsize(20.0);
+    CGFloat sepJ =WLsize(15.0);
+
     for (int j=0; j<3; j++) {
         UILabel *lbOfj = [[UILabel alloc] init];
         lbOfj.frame=CGRectMake(wwj*j, 0, wwj, hhj);
@@ -375,9 +403,9 @@
         [view2 addSubview:lbOfj];
         
         UILabel *lbOfj2 = [[UILabel alloc] init];
-        lbOfj2.frame=CGRectMake(wwj*j, hhj, wwj, hhj);
-        lbOfj2.textColor=UIColorFromRGB(0x999999, 1);
-        lbOfj2.font=[UIFont systemFontOfSize:WLsize(14.0)];
+        lbOfj2.frame=CGRectMake(wwj*j, hhj+sepJ, wwj, hhj);
+        lbOfj2.textColor=WLTEXTCOLOR;
+        lbOfj2.font=[UIFont systemFontOfSize:WLsize(20.0)];
         lbOfj2.textAlignment=NSTextAlignmentCenter;
         [view2 addSubview:lbOfj2];
         NSString *strtextj1=@"";
@@ -399,22 +427,22 @@
             default:
                 break;
         }
-        lbOfj.text=strtextj1;
-        lbOfj2.text=strtextj2;
+        lbOfj.text=strtextj2;
+        lbOfj2.text=strtextj1;
 
     }
     UIView *view3 =[[UIView alloc] init];
-    view3.frame=CGRectMake(0, CGRectGetMaxY(view2.frame)+WLsize(15.0), WIDTH, view.frame.size.height-CGRectGetMaxY(view2.frame)-WLsize(15.0));
+    view3.frame=CGRectMake(0, CGRectGetMaxY(view2.frame)+WLsize(27.0), WIDTH, view.frame.size.height-CGRectGetMaxY(view2.frame)-WLsize(27.0));
     UITapGestureRecognizer *ges3 =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickDetail:)];
     [view3 addGestureRecognizer:ges3];
     [view addSubview:view3];
     UILabel *sep3 =[[UILabel alloc] init];
-    sep3.frame=CGRectMake(WLsize(10.0), 0, WIDTH-WLsize(20.0), 1.0);
-    sep3.backgroundColor=UIColorFromRGB(0xBBBBBB, 1);
+    sep3.frame=CGRectMake(0, 0, WIDTH, 1.0/2);
+    sep3.backgroundColor=WLSEPLBColor;
     [view3 addSubview:sep3];
     UILabel *lbOfCcontext3 =[[UILabel alloc] init];
     lbOfCcontext3.frame=CGRectMake(0, 0, WIDTH, view3.frame.size.height);
-    lbOfCcontext3.textColor=WLTEXTCOLOR;
+    lbOfCcontext3.textColor=UIColorFromInt(153, 153, 153, 1);
     lbOfCcontext3.font=[UIFont systemFontOfSize:WLsize(14.0)];
     lbOfCcontext3.textAlignment=NSTextAlignmentCenter;
     lbOfCcontext3.text=@"查看详情";
@@ -424,17 +452,21 @@
 }
 - (void)createCell4:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
+    cell.contentView.backgroundColor= DEFAULT_BackgroundView_COLOR;
     UIView *view = [[UIView alloc] init];
-    view.frame=CGRectMake(0, 0, WIDTH, KCellHeight4);
-  
+    view.frame=CGRectMake(0, WLsize(13.0), WIDTH, KCellHeight4-WLsize(13.0));
+    view.backgroundColor=[UIColor whiteColor];
     [cell.contentView addSubview:view];
+//    @"open_banner1" @"open_banner2"
     NSMutableArray *arrofData = [[NSMutableArray alloc] init];
     HomeBannerModel *model1 = [[HomeBannerModel alloc] init];
-    model1.headImageUrl=@"http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png";
+//    model1.headImageUrl=@"http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png";
     model1.processId=@"2";
+    model1.headImage=@"open_banner1";
     [arrofData addObject:model1];
     HomeBannerModel *model2 = [[HomeBannerModel alloc] init];
-    model2.headImageUrl=@"http://img05.tooopen.com/images/20150820/tooopen_sy_139205349641.jpg";
+//    model2.headImageUrl=@"http://img05.tooopen.com/images/20150820/tooopen_sy_139205349641.jpg";
+    model2.headImage=@"open_banner2";
     model2.processId=@"2";
     
     [arrofData addObject:model2];
@@ -633,6 +665,34 @@
     self.selectOfTime=tag;
 //    [self.tableview reloadData];
     [self.tableview reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    if (tag==5) {
+        //点击了选择按钮
+        NSDate *date = [NSDate date];//这个是NSDate类型的日期，所要获取的年月日都放在这里；
+        
+        NSCalendar *cal = [NSCalendar currentCalendar];
+        unsigned int unitFlags = NSYearCalendarUnit|NSMonthCalendarUnit|
+        NSDayCalendarUnit;//这句是说你要获取日期的元素有哪些。获取年就要写NSYearCalendarUnit，获取小时就要写NSHourCalendarUnit，中间用|隔开；
+        
+        NSDateComponents *d = [cal components:unitFlags fromDate:date];//把要从date中获取的unitFlags标示的日期元素存放在NSDateComponents类型的d里面；
+        //然后就可以从d中获取具体的年月日了；
+        NSInteger year = [d year];
+        NSInteger month = [d month];
+        NSInteger day  =  [d day];
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        for (int i=0; i<10; i++) {
+            [temp addObject:[NSString stringWithFormat:@"%ld",(year-9+i)]];
+        }
+        NSMutableArray *arrayOfYears =[[NSMutableArray alloc] initWithArray:temp];
+
+        
+        self.selectTimeView = [[WLCustomeSelectTimeView alloc] initWithTitle:arrayOfYears withyear:[NSString stringWithFormat:@"%ld",year] withMonth:[NSString stringWithFormat:@"%ld",month] withDay:[NSString stringWithFormat:@"%ld",day]];
+
+        __weak typeof(self)weakSelf=self;
+        self.selectTimeView.clickSure = ^(NSString *year, NSString *month, NSString *day) {
+            NSLog(@"年=%@，月=%@，日=%@",year,month,day);
+        };
+       
+    }
     NSLog(@"%ld",tag);
 }
 

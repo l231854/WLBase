@@ -59,7 +59,7 @@
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
 //常用文字颜色
-#define WLTEXTCOLOR UIColorFromRGB(0x101010, 1)
+#define WLTEXTCOLOR UIColorFromInt(51, 51, 51, 1)
 
 /**登录成功通知 */
 #define KLoginSuccessfulNotification @"KLoginSuccessfulNotification"

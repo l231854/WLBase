@@ -8,12 +8,19 @@
 
 #import "WLHelpDishesViewController.h"
 #import "WLHelpDish2ViewController.h"
+#define KCell1SepH WLsize(64.0)
+#define KCell1RowH WLsize(40.0)
+#define KCell1RowSepH WLsize(12.0)
+
 @interface WLHelpDishesViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSMutableArray *arrayOfPeople;
 @property (nonatomic,strong) NSMutableArray *arrayOfLocated;
+@property (nonatomic,strong) NSMutableArray *arrayOfLocatedName;
+
 @property (nonatomic,copy) NSString *selectOfPeople;
 @property (nonatomic,copy) NSString *selectLocated;
+@property (nonatomic,copy) NSString *selectLocatedName;
 
 @end
 
@@ -25,7 +32,9 @@
     self.title=@"员工帮点";
     self.selectOfPeople=@"";
     self.selectLocated=@"";
-    self.arrayOfPeople=[[NSMutableArray alloc] initWithObjects:@"1", @"2",@"3",@"4",@"5",@"6", @"7",@"8",@"9",@"10",nil];
+    self.arrayOfPeople=[[NSMutableArray alloc] initWithObjects:@"1", @"2",@"3",@"4",@"5",@"6", @"7",@"8",@"9",@"10",@"11", @"12",@"13",@"14",@"15",@"16", @"17",@"18",@"19",@"20",nil];
+    self.arrayOfLocatedName=[[NSMutableArray alloc] initWithObjects:@"餐桌位置", @"大厅",@"包厢",nil];
+
     self.arrayOfLocated=[[NSMutableArray alloc] initWithObjects:@"A01", @"A02",@"A03",@"A04",@"A05",@"A06", @"A07",@"A08",@"A09",@"A10",nil];
 
     [self createUI];
@@ -61,17 +70,15 @@
 {
     CGFloat heigth=WLsize(100);
     if (indexPath.row==0) {
-        CGFloat hh=WLsize(23.0);
-        CGFloat seph=WLsize(28.0);
-        NSInteger row=(self.arrayOfPeople.count/6+(self.arrayOfPeople.count%6>0?1:0));
-        heigth= row*hh+(row-1)*seph +WLsize(15.0)+WLsize(61.0);
+        //用餐人数64
+        NSInteger row=(self.arrayOfPeople.count/5+(self.arrayOfPeople.count%5>0?1:0));
+        
+        heigth= row*(KCell1RowH+KCell1RowSepH)+KCell1SepH;
     }
     else if (indexPath.row==1)
     {
-        CGFloat hh=WLsize(23.0);
-        CGFloat seph=WLsize(28.0);
-        NSInteger row=(self.arrayOfPeople.count/6+(self.arrayOfPeople.count%6>0?1:0));
-        heigth= row*hh+(row)*seph+WLsize(65.0);
+        NSInteger row=(self.arrayOfPeople.count/5+(self.arrayOfPeople.count%5>0?1:0));
+        heigth= row*(KCell1RowH+KCell1RowSepH)+KCell1SepH;
     }
     else{
         heigth= WLsize(140.0);
@@ -108,84 +115,110 @@
 - (void)createCell1:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
     UILabel *lbOfTitle =[[UILabel alloc] init];
-    lbOfTitle.frame=CGRectMake(WLsize(31.0), WLsize(31.0), WLsize(60.0), WLsize(23.0));
+    lbOfTitle.frame=CGRectMake(WLsize(15.0), WLsize(18.0), WLsize(70.0), WLsize(21.0));
     lbOfTitle.textColor=WLTEXTCOLOR;
-    lbOfTitle.font=[UIFont systemFontOfSize:WLsize(14.0)];
+    lbOfTitle.font=[UIFont systemFontOfSize:WLsize(15.0)];
     lbOfTitle.text=@"用餐人数";
     [cell.contentView addSubview:lbOfTitle];
-    CGFloat ww =WLsize(25.0);
-    CGFloat hh=WLsize(23.0);
-    CGFloat seph=WLsize(28.0);
-    NSInteger row=(self.arrayOfPeople.count/6+(self.arrayOfPeople.count%6>0?1:0));
-    CGFloat viewH= row*hh+(row-1)*seph +WLsize(15.0);
-    UIView *view = [[UIView alloc] init];
-    view.frame =CGRectMake(WLsize(50.0), CGRectGetMaxY(lbOfTitle.frame)+WLsize(7.0), WIDTH-WLsize(100.0), viewH);
-    [cell.contentView addSubview:view];
-    CGFloat sepw = (view.frame.size.width-ww*6)/5.0;
-
+    
+    NSInteger row=(self.arrayOfPeople.count/5+(self.arrayOfPeople.count%5>0?1:0));
+    
+   CGFloat heigth= row*(KCell1RowH+KCell1RowSepH)+KCell1SepH;
+    UIView *viewOfContent = [[UIView alloc] init];
+    viewOfContent.frame=CGRectMake(WLsize(25), KCell1SepH, WIDTH-WLsize(50), heigth-KCell1SepH);
+    [cell.contentView addSubview:viewOfContent];
+    
+    CGFloat ww =WLsize(42.0);
+    CGFloat hh=WLsize(40.0);
+    CGFloat seph=KCell1RowSepH;
+    CGFloat sepw=(viewOfContent.frame.size.width-ww*5)/4.0;
     for (int i=0; i<self.arrayOfPeople.count; i++) {
-        int  row1=i/6;
-        int colum1 = i%6;
+        int  row1=i/5;
+        int colum1 = i%5;
         UILabel *lb1 = [[UILabel alloc] init];
         lb1.frame=CGRectMake((ww+sepw)*colum1, (hh+seph)*row1, ww, hh);
-        lb1.textColor=WLTEXTCOLOR;
         lb1.font=[UIFont systemFontOfSize:WLsize(14.0)];
         lb1.textAlignment=NSTextAlignmentCenter;
         lb1.text=[self.arrayOfPeople objectAtIndex:i];
+        lb1.layer.masksToBounds=YES;
+        lb1.layer.cornerRadius=WLsize(5);
         if ([lb1.text isEqualToString:self.selectOfPeople]) {
-            lb1.backgroundColor=UIColorFromRGB(0xBBBBBB, 1);
-        }
-        else{
-            lb1.backgroundColor=[UIColor clearColor];
+            lb1.backgroundColor=WLORANGColor;
+            lb1.textColor=[UIColor whiteColor];
 
         }
-        [view addSubview:lb1];
+        else{
+            lb1.textColor=WLTEXTCOLOR;
+            lb1.backgroundColor=[UIColor whiteColor];
+        }
+        [viewOfContent addSubview:lb1];
         lb1.userInteractionEnabled=YES;
         UITapGestureRecognizer *ges =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPeopleNumber:)];
         [lb1 addGestureRecognizer:ges];
     }
     UILabel *sepLb =[[UILabel alloc] init];
-    sepLb.frame=CGRectMake(0, CGRectGetMaxY(view.frame)-1, WIDTH, 1);
-    sepLb.backgroundColor=UIColorFromRGB(0xBBBBBB, 1);
+    sepLb.frame=CGRectMake(WLsize(15), heigth-1.0/2, WIDTH-WLsize(30), 1.0/2);
+    sepLb.backgroundColor=WLSEPLBColor;
     [cell.contentView addSubview:sepLb];
-    
 }
 - (void)createCell2:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger row=(self.arrayOfPeople.count/5+(self.arrayOfPeople.count%5>0?1:0));
+    CGFloat  heigth= row*(KCell1RowH+KCell1RowSepH)+KCell1SepH;
+    
     UIView *view1 = [[UIView alloc] init];
-    view1.frame=CGRectMake(WLsize(31.0),WLsize(15.0), WIDTH-WLsize(62.0), WLsize(30.0));
+    view1.frame=CGRectMake(0,WLsize(10.0), WIDTH-WLsize(20.0), KCell1RowH);
     [cell.contentView addSubview:view1];
-    NSMutableArray *tempArray =[[NSMutableArray alloc] initWithObjects:@"大厅", @"包厢", nil];
-    CGFloat btnw =WLsize(56.0);
-    CGFloat btnSep =WLsize(4.0);
+    UILabel *lbOfTilte = [[UILabel alloc] init];
+    lbOfTilte.frame=CGRectMake(WLsize(15), 0, WLsize(80), view1.frame.size.height);
+    lbOfTilte.text=@"餐桌位置";
+    lbOfTilte.font=[UIFont systemFontOfSize:WLsize(14)];
+    lbOfTilte.textColor=WLTEXTCOLOR;
+    [view1 addSubview:lbOfTilte];
+    
+    CGFloat btnw =WLsize(50);
+    CGFloat btnSep =(WIDTH-CGRectGetMaxX(lbOfTilte.frame)-WLsize(15))/self.arrayOfLocatedName.count;
 
-    for (int i=0; i<tempArray.count; i++) {
+    for (int i=0; i<self.arrayOfLocatedName.count; i++) {
         UIButton *btn1 = [[UIButton alloc] init];
-        btn1.frame=CGRectMake((btnw +btnSep)*i, 0, WLsize(56.0), view1.frame.size.height);
+        btn1.frame=CGRectMake((btnw +btnSep)*i, 0, btnw, view1.frame.size.height);
         btn1.layer.masksToBounds=YES;
-        btn1.layer.cornerRadius=WLsize(4.0);
-        btn1.layer.borderWidth=1.0;
+        btn1.layer.cornerRadius=WLsize(5.0);
+//        btn1.layer.borderWidth=1.0;
         btn1.tag=i+1;
-        btn1.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
-        [btn1 setTitle:[tempArray objectAtIndex:i] forState:UIControlStateNormal];
+//        btn1.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+        [btn1 setTitle:[self.arrayOfLocatedName objectAtIndex:i] forState:UIControlStateNormal];
         [btn1 setTitleColor:WLTEXTCOLOR forState:UIControlStateNormal];
         [btn1 addTarget:self action:@selector(clickLocated:) forControlEvents:UIControlEventTouchUpInside];
+        if ([self.selectLocatedName isEqualToString:[self.arrayOfLocatedName objectAtIndex:i]]) {
+            [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btn1.backgroundColor=WLORANGColor;
+        }
+        else{
+            [btn1 setTitleColor:WLTEXTCOLOR forState:UIControlStateNormal];
+            btn1.backgroundColor=[UIColor whiteColor];
+        }
         [view1 addSubview:btn1];
         
     }
-    CGFloat ww =WLsize(30.0);
-    CGFloat hh=WLsize(23.0);
-    CGFloat seph=WLsize(28.0);
-    NSInteger row=(self.arrayOfPeople.count/6+(self.arrayOfPeople.count%6>0?1:0));
-    CGFloat viewH= row*hh+(row)*seph;
-    UIView *view = [[UIView alloc] init];
-    view.frame =CGRectMake(WLsize(40.0), CGRectGetMaxY(view1.frame)+WLsize(20.0), WIDTH-WLsize(70.0), viewH);
-    [cell.contentView addSubview:view];
-    CGFloat sepw = (view.frame.size.width-ww*6)/5.0;
     
+//    CGFloat ww =WLsize(30.0);
+//    CGFloat hh=WLsize(23.0);
+//    CGFloat seph=WLsize(28.0);
+//    NSInteger row=(self.arrayOfPeople.count/6+(self.arrayOfPeople.count%6>0?1:0));
+//    CGFloat viewH= row*hh+(row)*seph;
+//    NSInteger row=(self.arrayOfPeople.count/5+(self.arrayOfPeople.count%5>0?1:0));
+//    heigth2= row*(KCell1RowH+KCell1RowSepH)+KCell1SepH;
+    UIView *view = [[UIView alloc] init];
+    view.frame =CGRectMake(WLsize(27.0), CGRectGetMaxY(view1.frame)+WLsize(10.0), WIDTH-WLsize(54.0), heigth-KCell1SepH);
+    [cell.contentView addSubview:view];
+        CGFloat ww =WLsize(50.0);
+        CGFloat hh=KCell1RowH;
+        CGFloat sepw = (view.frame.size.width-ww*5)/4.0;
+        CGFloat seph=(view.frame.size.height-hh*(self.arrayOfLocated.count))/self.arrayOfLocated.count;
     for (int i=0; i<self.arrayOfLocated.count; i++) {
-        int  row1=i/6;
-        int colum1 = i%6;
+        int  row1=i/5;
+        int colum1 = i%5;
         UILabel *lb1 = [[UILabel alloc] init];
         lb1.frame=CGRectMake((ww+sepw)*colum1, (hh+seph)*row1, ww, hh);
         lb1.textColor=WLTEXTCOLOR;
@@ -248,6 +281,10 @@
 - (void)clickLocated:(UIButton *)button
 {
     NSInteger tag = button.tag;
+    self.selectLocatedName=button.titleLabel.text;
+    self.selectLocated=@"";
+    [self.tableview reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    
     NSLog(@"%ld",tag);
 }
 
