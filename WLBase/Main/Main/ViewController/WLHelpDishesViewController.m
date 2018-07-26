@@ -11,6 +11,7 @@
 #define KCell1SepH WLsize(64.0)
 #define KCell1RowH WLsize(40.0)
 #define KCell1RowSepH WLsize(12.0)
+#define KCell4H WLsize(84.0)
 
 @interface WLHelpDishesViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableview;
@@ -33,7 +34,7 @@
     self.selectOfPeople=@"";
     self.selectLocated=@"";
     self.arrayOfPeople=[[NSMutableArray alloc] initWithObjects:@"1", @"2",@"3",@"4",@"5",@"6", @"7",@"8",@"9",@"10",@"11", @"12",@"13",@"14",@"15",@"16", @"17",@"18",@"19",@"20",nil];
-    self.arrayOfLocatedName=[[NSMutableArray alloc] initWithObjects:@"餐桌位置", @"大厅",@"包厢",nil];
+    self.arrayOfLocatedName=[[NSMutableArray alloc] initWithObjects:@"大厅",@"包厢",nil];
 
     self.arrayOfLocated=[[NSMutableArray alloc] initWithObjects:@"A01", @"A02",@"A03",@"A04",@"A05",@"A06", @"A07",@"A08",@"A09",@"A10",nil];
 
@@ -49,7 +50,7 @@
         self.tableview=[[UITableView alloc] init];
     }
     self.tableview.frame=CGRectMake(0, 0, WIDTH, HEIGHT-XCStatusBar);
-    self.tableview.backgroundColor=[UIColor whiteColor];
+    self.tableview.backgroundColor=DEFAULT_BackgroundView_COLOR;
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
@@ -77,11 +78,11 @@
     }
     else if (indexPath.row==1)
     {
-        NSInteger row=(self.arrayOfPeople.count/5+(self.arrayOfPeople.count%5>0?1:0));
-        heigth= row*(KCell1RowH+KCell1RowSepH)+KCell1SepH;
+        NSInteger row=(self.arrayOfLocated.count/5+(self.arrayOfLocated.count%5>0?1:0));
+        heigth= row*(KCell1RowH+KCell1RowSepH)+WLsize(60);
     }
     else{
-        heigth= WLsize(140.0);
+        heigth= KCell4H;
 
     }
  
@@ -163,9 +164,9 @@
 }
 - (void)createCell2:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger row=(self.arrayOfPeople.count/5+(self.arrayOfPeople.count%5>0?1:0));
-    CGFloat  heigth= row*(KCell1RowH+KCell1RowSepH)+KCell1SepH;
-    
+    NSInteger row=(self.arrayOfLocated.count/5+(self.arrayOfLocated.count%5>0?1:0));
+    CGFloat heigth= row*(KCell1RowH+KCell1RowSepH)+WLsize(60);
+
     UIView *view1 = [[UIView alloc] init];
     view1.frame=CGRectMake(0,WLsize(10.0), WIDTH-WLsize(20.0), KCell1RowH);
     [cell.contentView addSubview:view1];
@@ -177,17 +178,24 @@
     [view1 addSubview:lbOfTilte];
     
     CGFloat btnw =WLsize(50);
-    CGFloat btnSep =(WIDTH-CGRectGetMaxX(lbOfTilte.frame)-WLsize(15))/self.arrayOfLocatedName.count;
-
+    NSInteger count=4;
+    if (self.arrayOfLocatedName.count>4) {
+        count=self.arrayOfLocatedName.count;
+    }
+    CGFloat btnSep =(view1.frame.size.width-btnw*count-CGRectGetMaxX(lbOfTilte.frame)-WLsize(10))/count;
     for (int i=0; i<self.arrayOfLocatedName.count; i++) {
         UIButton *btn1 = [[UIButton alloc] init];
-        btn1.frame=CGRectMake((btnw +btnSep)*i, 0, btnw, view1.frame.size.height);
+        btn1.frame=CGRectMake((btnw +btnSep)*i+CGRectGetMaxX(lbOfTilte.frame)+WLsize(10), 0, btnw, view1.frame.size.height);
         btn1.layer.masksToBounds=YES;
         btn1.layer.cornerRadius=WLsize(5.0);
 //        btn1.layer.borderWidth=1.0;
         btn1.tag=i+1;
 //        btn1.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
         [btn1 setTitle:[self.arrayOfLocatedName objectAtIndex:i] forState:UIControlStateNormal];
+        NSString *strTilte =[self.arrayOfLocatedName objectAtIndex:i];
+       CGFloat  big =14.0-(strTilte.length/2-1)*2;
+        btn1.titleLabel.font =[UIFont systemFontOfSize:WLsize(big)];
+        
         [btn1 setTitleColor:WLTEXTCOLOR forState:UIControlStateNormal];
         [btn1 addTarget:self action:@selector(clickLocated:) forControlEvents:UIControlEventTouchUpInside];
         if ([self.selectLocatedName isEqualToString:[self.arrayOfLocatedName objectAtIndex:i]]) {
@@ -210,12 +218,12 @@
 //    NSInteger row=(self.arrayOfPeople.count/5+(self.arrayOfPeople.count%5>0?1:0));
 //    heigth2= row*(KCell1RowH+KCell1RowSepH)+KCell1SepH;
     UIView *view = [[UIView alloc] init];
-    view.frame =CGRectMake(WLsize(27.0), CGRectGetMaxY(view1.frame)+WLsize(10.0), WIDTH-WLsize(54.0), heigth-KCell1SepH);
+    view.frame =CGRectMake(WLsize(27.0), CGRectGetMaxY(view1.frame)+WLsize(10.0), WIDTH-WLsize(54.0), heigth-WLsize(60));
     [cell.contentView addSubview:view];
         CGFloat ww =WLsize(50.0);
         CGFloat hh=KCell1RowH;
         CGFloat sepw = (view.frame.size.width-ww*5)/4.0;
-        CGFloat seph=(view.frame.size.height-hh*(self.arrayOfLocated.count))/self.arrayOfLocated.count;
+        CGFloat seph=KCell1RowSepH;
     for (int i=0; i<self.arrayOfLocated.count; i++) {
         int  row1=i/5;
         int colum1 = i%5;
@@ -225,35 +233,40 @@
         lb1.font=[UIFont systemFontOfSize:WLsize(14.0)];
         lb1.textAlignment=NSTextAlignmentCenter;
         lb1.text=[self.arrayOfLocated objectAtIndex:i];
+        lb1.layer.masksToBounds=YES;
+        lb1.layer.cornerRadius=WLsize(5);
         if ([lb1.text isEqualToString:self.selectLocated]) {
-            lb1.backgroundColor=UIColorFromRGB(0xBBBBBB, 1);
+            lb1.backgroundColor=WLORANGColor;
+            lb1.textColor=[UIColor whiteColor];
         }
         else{
-            lb1.backgroundColor=[UIColor clearColor];
-            
+            lb1.backgroundColor=[UIColor whiteColor];
+            lb1.textColor=WLTEXTCOLOR;
         }
         [view addSubview:lb1];
         lb1.userInteractionEnabled=YES;
         UITapGestureRecognizer *ges2 =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPeopleLocated:)];
         [lb1 addGestureRecognizer:ges2];
     }
-    UILabel *sepLb =[[UILabel alloc] init];
-    sepLb.frame=CGRectMake(0, CGRectGetMaxY(view.frame)-1, WIDTH, 1);
-    sepLb.backgroundColor=UIColorFromRGB(0xBBBBBB, 1);
-    [cell.contentView addSubview:sepLb];
+//    UILabel *sepLb =[[UILabel alloc] init];
+//    sepLb.frame=CGRectMake(0, CGRectGetMaxY(view.frame)-1, WIDTH, 1);
+//    sepLb.backgroundColor=UIColorFromRGB(0xBBBBBB, 1);
+//    [cell.contentView addSubview:sepLb];
     
 }
 
 - (void)createCell3:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
+    cell.contentView.backgroundColor=DEFAULT_BackgroundView_COLOR;
     UIButton *btn1 = [[UIButton alloc] init];
-    btn1.frame=CGRectMake((WIDTH-WLsize(80.0))/2.0, WLsize(55.0), WLsize(80.0), WLsize(30.0));
+    btn1.frame=CGRectMake(WLsize(13), WLsize(22.0), WIDTH-WLsize(26), WLsize(40.0));
     btn1.layer.masksToBounds=YES;
-    btn1.layer.cornerRadius=WLsize(4.0);
-    btn1.layer.borderWidth=1.0;
-    btn1.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+    btn1.layer.cornerRadius=WLsize(5.0);
+//    btn1.layer.borderWidth=1.0;
+//    btn1.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
     [btn1 setTitle:@"去点菜" forState:UIControlStateNormal];
-    [btn1 setTitleColor:WLTEXTCOLOR forState:UIControlStateNormal];
+    [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btn1.backgroundColor=WLORANGColor;
     [btn1 addTarget:self action:@selector(clickGoTodish:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:btn1];
 }
@@ -283,6 +296,14 @@
     NSInteger tag = button.tag;
     self.selectLocatedName=button.titleLabel.text;
     self.selectLocated=@"";
+    if (button.tag==1) {
+        self.arrayOfLocated=[[NSMutableArray alloc] initWithObjects:@"A01", @"A02",@"A03",@"A04",@"A05",@"A06", @"A07",@"A08",@"A09",@"A10",nil];
+
+    }
+    else{
+        self.arrayOfLocated=[[NSMutableArray alloc] initWithObjects:@"B01", @"B02",@"B03",@"B04",@"B05",@"B06", @"B07",@"B08",@"B09",@"B10",nil];
+
+    }
     [self.tableview reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     
     NSLog(@"%ld",tag);

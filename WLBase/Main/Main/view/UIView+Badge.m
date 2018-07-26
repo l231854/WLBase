@@ -246,12 +246,12 @@
 {
     UILabel *lbOfBall = [[UILabel alloc] init];
     lbOfBall.frame=CGRectMake(self.frame.size.width-18, 0, 20, 20);
-    lbOfBall.backgroundColor=[UIColor whiteColor];
+    lbOfBall.backgroundColor=WLORANGColor;
     lbOfBall.layer.masksToBounds=YES;
-    lbOfBall.layer.borderWidth=1.0;
+//    lbOfBall.layer.borderWidth=1.0;
     lbOfBall.layer.cornerRadius=lbOfBall.frame.size.width/2.0;
-    lbOfBall.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
-    lbOfBall.textColor=WLTEXTCOLOR;
+//    lbOfBall.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+    lbOfBall.textColor=[UIColor whiteColor];
     if (badgeString.length==1) {
         lbOfBall.font=[UIFont systemFontOfSize:14];
     }
@@ -261,6 +261,31 @@
         }
         lbOfBall.font=[UIFont systemFontOfSize:12];
 
+    }
+    lbOfBall.textAlignment=NSTextAlignmentCenter;
+    lbOfBall.text=badgeString;
+    [self addSubview:lbOfBall];
+    
+}
+-(void)setNew2Badge:(NSString *)badgeString
+{
+    UILabel *lbOfBall = [[UILabel alloc] init];
+    lbOfBall.frame=CGRectMake(self.frame.size.width-18, -3, 20, 20);
+    lbOfBall.backgroundColor=[UIColor redColor];
+    lbOfBall.layer.masksToBounds=YES;
+    //    lbOfBall.layer.borderWidth=1.0;
+    lbOfBall.layer.cornerRadius=lbOfBall.frame.size.width/2.0;
+    //    lbOfBall.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+    lbOfBall.textColor=[UIColor whiteColor];
+    if (badgeString.length==1) {
+        lbOfBall.font=[UIFont systemFontOfSize:14];
+    }
+    else{
+        if ([badgeString intValue]>99) {
+            badgeString=@"99";
+        }
+        lbOfBall.font=[UIFont systemFontOfSize:12];
+        
     }
     lbOfBall.textAlignment=NSTextAlignmentCenter;
     lbOfBall.text=badgeString;

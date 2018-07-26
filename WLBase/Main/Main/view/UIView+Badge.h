@@ -12,6 +12,7 @@
 
 //显示数字
 -(void)setNewBadge:(NSString *)badgeString;
+-(void)setNew2Badge:(NSString *)badgeString;
 //显示数字
 -(void)setBadge:(NSString *)badgeString;
 //显示红点

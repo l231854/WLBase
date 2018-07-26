@@ -9,6 +9,8 @@
 #import "WLShopServiceViewController.h"
 #import "WLHelpDishesViewController.h"
 @interface WLShopServiceViewController ()
+@property (nonatomic,strong) NSMutableArray *arrayOfText;
+@property (nonatomic,strong) NSMutableArray *arrayOfImage;
 
 @end
 
@@ -18,24 +20,29 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title=@"店内服务";
+    self.arrayOfText=[[NSMutableArray alloc] initWithObjects:@"帮客点餐",@"餐桌管理点餐",@"买单收款",@"排队",@"预约", nil];
+    self.arrayOfImage=[[NSMutableArray alloc] initWithObjects:@"Stafforde_icon",@"tablemanagement_icon",@"pay_icon",@"line_up_icon",@"make_icon", nil];
+
     [self createUI];
     [self createRight];
 }
 #pragma mark --创建UI
 - (void)createUI{
-    CGFloat ww=WLsize(149.0);
-    CGFloat hh =WLsize(134.0);
-    CGFloat seph= WLsize(10.0);
-    NSArray *temp1=[[NSArray alloc] initWithObjects:@"1",@"2",@"3", nil];
-    NSArray *temp2=[[NSArray alloc] initWithObjects:@"员工帮点",@"餐桌管理",@"买单收菜", nil];
-
-    for (int i=0; i<3; i++) {
+    self.view.backgroundColor=DEFAULT_BackgroundView_COLOR;
+    CGFloat ww=WLsize(150.0);
+    CGFloat hh =WLsize(150);
+    CGFloat seph= WLsize(19);
+    CGFloat seph2= WLsize(37);
+    for (int i=0; i<self.arrayOfText.count; i++) {
+        NSInteger row =i/2;
+        NSInteger colum = i%2;
         UIView *view = [[UIView alloc] init];
-        view.frame=CGRectMake((WIDTH-ww)/2.0, WLsize(75.0)+(hh+seph)*i, ww, hh);
+        view.frame=CGRectMake(seph+(ww+seph2)*colum, WLsize(40.0)+(hh+WLsize(20))*row, ww, hh);
         view.layer.masksToBounds=YES;
-        view.layer.borderWidth=1.0;
-        view.layer.cornerRadius=10.0;
-        view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
+        view.backgroundColor=[UIColor whiteColor];
+//        view.layer.borderWidth=1.0;
+        view.layer.cornerRadius=WLsize(5);
+//        view.layer.borderColor=UIColorFromRGB(0xBBBBBB, 1).CGColor;
         [self.view addSubview:view];
         view.userInteractionEnabled=YES;
         view.tag=i+1;
@@ -44,19 +51,16 @@
         
         
         UIImageView *imageview =[[UIImageView alloc] init];
-        imageview.frame=CGRectMake((view.frame.size.width-WLsize(60.0))/2.0, WLsize(23.0), WLsize(60.0), WLsize(60.0));
-            imageview.image =[UIImage imageNamed:[temp1 objectAtIndex:i]];
-        imageview.layer.masksToBounds=YES;
-        imageview.layer.cornerRadius=imageview.frame.size.height/2.0;
-        imageview.backgroundColor=[UIColor grayColor];
+        imageview.frame=CGRectMake((view.frame.size.width-WLsize(40.0))/2.0, WLsize(40.0), WLsize(40.0), WLsize(40.0));
+            imageview.image =[UIImage imageNamed:[self.arrayOfImage objectAtIndex:i]];
         [view addSubview:imageview];
         
         UILabel *lb1 = [[UILabel alloc] init];
-        lb1.frame=CGRectMake(0, CGRectGetMaxY(imageview.frame)+WLsize(18.0), view.frame.size.width, WLsize(24.0));
+        lb1.frame=CGRectMake(0, CGRectGetMaxY(imageview.frame)+WLsize(13.0), view.frame.size.width, WLsize(20.0));
         lb1.textColor=WLTEXTCOLOR;
-        lb1.font=[UIFont systemFontOfSize:WLsize(17.0)];
+        lb1.font=[UIFont systemFontOfSize:WLsize(14.0)];
         lb1.textAlignment=NSTextAlignmentCenter;
-        lb1.text=[temp2 objectAtIndex:i];
+        lb1.text=[self.arrayOfText objectAtIndex:i];
         [view addSubview:lb1];
     
     }
@@ -68,7 +72,7 @@
     UIButton *right = [UIButton buttonWithType:UIButtonTypeCustom];
     right.frame=CGRectMake(0, 0, 40, 40);
     //    [right setTitle:@"right" forState:UIControlStateNormal];
-    [right setImage:[UIImage imageNamed:@"icon11"] forState:UIControlStateNormal];
+    [right setImage:[UIImage imageNamed:@"order_notice_icon"] forState:UIControlStateNormal];
     [right setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [right addTarget:self action:@selector(clickRight) forControlEvents:UIControlEventTouchUpInside];
     [right setNewBadge:@"5"];

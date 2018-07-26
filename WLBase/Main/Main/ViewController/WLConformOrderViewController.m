@@ -114,6 +114,18 @@
     lbOfTitle.text=[self.arrayOfData objectAtIndex:indexPath.row];
     [view addSubview:lbOfTitle];
     
+    UIImageView *imageview=[[UIImageView alloc] init];
+    imageview.image=[UIImage imageNamed:@"right _arrow"];
+    imageview.frame=CGRectMake(WIDTH-WLsize(15),(KCellHeight-WLsize(10))/2.0, WLsize(10), WLsize(10));
+    if (indexPath.row==0) {
+        imageview.hidden=NO;
+        [view addSubview:imageview];
+    }
+    else{
+        imageview.hidden=YES;
+
+    }
+    
     UILabel *lbOfsep = [[UILabel alloc] init];
     lbOfsep.frame=CGRectMake(WLsize(13.0), KCellHeight-1, WIDTH-WLsize(26), 1.0);
     lbOfsep.backgroundColor=WLSEPLBColor;
@@ -127,6 +139,53 @@
 - (void)createCell2:(UITableViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath
 {
     cell.contentView.backgroundColor=DEFAULT_BackgroundView_COLOR;
+    UIView *view = [[UIView alloc] init];
+    view.frame=CGRectMake(WLsize(29), WLsize(27), WIDTH-WLsize(58), WLsize(36));
+    [cell.contentView addSubview:view];
+    NSArray *temp = [[NSArray alloc] initWithObjects:@"等待处理",@"已确认",@"已完成", nil];
+    NSArray *tempArrayImage = [[NSArray alloc] initWithObjects:@"check_click_icon",@"check_normal_icon",@"check_normal_icon", nil];
+
+    CGFloat ww = WLsize(50);
+    CGFloat hh = view.frame.size.height;
+    CGFloat sepW = (view.frame.size.width-ww*temp.count)/2.0;
+
+    for (int i=0; i<temp.count; i++) {
+        UIView *view1 = [[UIView alloc] init];
+        view1.frame=CGRectMake((ww+sepW)*i, 0, ww, hh);
+        [view addSubview:view1];
+        UIImageView *imageOfSelect =[[UIImageView alloc] init];
+        imageOfSelect.frame=CGRectMake((view1.frame.size.width-WLsize(15))/2.0, 0, WLsize(15), WLsize(15));
+        imageOfSelect.image=[UIImage imageNamed:[tempArrayImage objectAtIndex:i]];
+        [view1 addSubview:imageOfSelect];
+        UILabel *lbOfText = [[UILabel alloc] init];
+        lbOfText.text=[temp objectAtIndex:i];
+        lbOfText.textColor=UIColorFromInt(153, 153, 153, 1);
+        if (i==0) {
+            lbOfText.textColor=WLTEXTCOLOR;
+
+        }
+        lbOfText.font=[UIFont systemFontOfSize:WLsize(12)];
+        lbOfText.textAlignment=NSTextAlignmentCenter;
+        lbOfText.frame=CGRectMake(0, CGRectGetMaxY(imageOfSelect.frame)+WLsize(5), view1.frame.size.width, view1.frame.size.height-CGRectGetMaxY(imageOfSelect.frame)-WLsize(5));
+        [view1 addSubview:lbOfText];
+        
+    }
+    NSArray *tempSep = [[NSArray alloc] initWithObjects:@"1",@"0",@"0",@"0", nil];
+    CGFloat wwj =WLsize(58);
+    CGFloat hhJ = 2.0;
+    CGFloat sepHj=WLsize(7);
+    for (int j=0; j<4; j++) {
+        UILabel *lbOfLb = [[UILabel alloc] init];
+        lbOfLb.frame=CGRectMake(WLsize(3)+wwj*j+WLsize(21)*(j-1),sepHj,wwj, hhJ);
+        NSString *select = [tempSep objectAtIndex:j];
+        if ([select intValue]==1) {
+            lbOfLb.backgroundColor=WLORANGColor;
+        }else{
+            lbOfLb.backgroundColor=UIColorFromInt(102, 102, 102, 1);
+
+        }
+        [view addSubview:lbOfLb];
+    }
 }
 
 #pragma mark --创建cell

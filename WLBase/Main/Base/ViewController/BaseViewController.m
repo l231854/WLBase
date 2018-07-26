@@ -278,9 +278,18 @@
     
     self.view.userInteractionEnabled=YES;
     UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOther)];
+    ges.delegate=self;
     [self.view addGestureRecognizer:ges];
 
 }
+#pragma mark-手势代理，解决和tableview点击发生的冲突
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {//判断如果点击的是tableView的cell，就把手势给关闭了
+        return NO;//关闭手势
+    }//否则手势存在
+    return YES;
+}
+
 #pragma mark --创建回到首页的圆球
 - (void)createBallOfGoToHome
 {
